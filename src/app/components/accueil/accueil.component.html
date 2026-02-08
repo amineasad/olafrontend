@@ -1,6 +1,6 @@
 <div class="ola-page">
 
-  <!-- NAVBAR (INCHANGÉE) -->
+  <!-- NAVBAR (RECTANGULAIRE FULL WIDTH - INCHANGÉE) -->
   <nav class="ola-nav">
     <div class="nav-inner">
 
@@ -63,229 +63,117 @@
     </div>
   </nav>
 
-  <!-- HERO SECTION -->
-  <div class="hero-section">
-    <div class="hero-content">
-      <div class="hero-badge">
-        <i class="fas fa-fire"></i>
-        <span>Plateforme Intelligente</span>
-      </div>
-      <h1 class="hero-title">
-        Optimisez votre logistique avec 
-        <span class="gradient-text">l'intelligence artificielle</span>
-      </h1>
-      <p class="hero-description">
-        Importez vos rapports Excel, analysez vos KPI en temps réel, 
-        détectez automatiquement les anomalies et anticipez les tendances 
-        grâce à nos modèles prédictifs avancés.
-      </p>
-      <div class="hero-actions">
-        <a routerLink="/dashboard" class="btn-hero-primary">
-          <i class="fas fa-chart-line"></i>
-          <span>Voir mes KPIs</span>
-        </a>
-        <a routerLink="/powerbi" class="btn-hero-secondary">
-          <i class="fas fa-chart-bar"></i>
-          <span>Analyse Power BI</span>
-        </a>
-      </div>
-
-      <!-- Quick Stats -->
-      <div class="quick-stats">
-        <div class="stat-quick">
-          <div class="stat-icon-quick">📊</div>
-          <div class="stat-value-quick">15.2M</div>
-          <div class="stat-label-quick">Ventes mensuelles</div>
-        </div>
-        <div class="stat-quick">
-          <div class="stat-icon-quick">🎯</div>
-          <div class="stat-value-quick">87%</div>
-          <div class="stat-label-quick">Précision IA</div>
-        </div>
-        <div class="stat-quick">
-          <div class="stat-icon-quick">⚡</div>
-          <div class="stat-value-quick">24/7</div>
-          <div class="stat-label-quick">Analyse continue</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FEATURES SECTION -->
-  <div class="features-section">
-    <div class="section-header">
-      <h2 class="section-title">Fonctionnalités clés</h2>
-      <p class="section-subtitle">Tout ce dont vous avez besoin pour piloter votre activité</p>
-    </div>
-
-    <div class="features-grid">
+  <!-- CONTENT ULTRA-COMPACT (UNE SEULE PAGE) -->
+  <div class="home-container">
+    
+    <!-- HERO + SIDEBAR GRID -->
+    <div class="home-grid">
       
-      <!-- Feature 1 -->
-      <div class="feature-card">
-        <div class="feature-icon-container">
-          <i class="fas fa-upload"></i>
+      <!-- LEFT: HERO COMPACT -->
+      <div class="hero-zone">
+        <div class="hero-badge-mini">
+          <i class="fas fa-fire"></i>
+          <span>Plateforme Intelligente</span>
         </div>
-        <h3 class="feature-title">Import Automatisé</h3>
-        <p class="feature-description">
-          Importez vos fichiers Excel mensuels en un clic. 
-          Le système extrait et structure automatiquement vos données.
+        <h1 class="hero-title-mini">
+          Optimisez votre logistique avec 
+          <span class="gradient-text">l'IA</span>
+        </h1>
+        <p class="hero-desc-mini">
+          Importez vos rapports Excel, analysez vos KPI en temps réel et 
+          détectez automatiquement les anomalies avec une précision de 87%.
         </p>
-        <a routerLink="/import" class="feature-link">
-          Importer maintenant <i class="fas fa-arrow-right"></i>
-        </a>
+        <div class="hero-btns">
+          <a routerLink="/dashboard" class="btn-primary-mini">
+            <i class="fas fa-chart-line"></i>
+            Voir mes KPIs
+          </a>
+          <a routerLink="/powerbi" class="btn-secondary-mini">
+            <i class="fas fa-chart-bar"></i>
+            Power BI
+          </a>
+        </div>
       </div>
 
-      <!-- Feature 2 -->
-      <div class="feature-card">
-        <div class="feature-icon-container">
-          <i class="fas fa-chart-line"></i>
+      <!-- RIGHT: STATS + FEATURES COMPACT -->
+      <div class="sidebar-zone">
+        
+        <!-- Quick Stats -->
+        <div class="stats-mini-grid">
+          <div class="stat-mini-card">
+            <div class="stat-mini-icon">📊</div>
+            <div class="stat-mini-value">15.2M</div>
+            <div class="stat-mini-label">Ventes</div>
+          </div>
+          <div class="stat-mini-card">
+            <div class="stat-mini-icon">🎯</div>
+            <div class="stat-mini-value">87%</div>
+            <div class="stat-mini-label">Précision</div>
+          </div>
+          <div class="stat-mini-card">
+            <div class="stat-mini-icon">⚡</div>
+            <div class="stat-mini-value">24/7</div>
+            <div class="stat-mini-label">Analyse</div>
+          </div>
         </div>
-        <h3 class="feature-title">KPI en Temps Réel</h3>
-        <p class="feature-description">
-          Suivez vos indicateurs clés (ventes, coûts, livraisons) 
-          actualisés instantanément avec évolutions mensuelles.
-        </p>
-        <a routerLink="/dashboard" class="feature-link">
-          Voir le dashboard <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
 
-      <!-- Feature 3 -->
-      <div class="feature-card">
-        <div class="feature-icon-container">
-          <i class="fas fa-exclamation-triangle"></i>
-        </div>
-        <h3 class="feature-title">Détection d'Anomalies</h3>
-        <p class="feature-description">
-          L'IA identifie automatiquement les variations anormales 
-          (coûts, incidents) et vous alerte en temps réel.
-        </p>
-        <a routerLink="/anomalies" class="feature-link">
-          Voir les alertes <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
+        <!-- Features Mini -->
+        <div class="features-mini-grid">
+          <a routerLink="/dashboard" class="feature-mini-card">
+            <div class="feature-mini-icon">📈</div>
+            <div>
+              <h3>KPI Temps Réel</h3>
+              <p>Ventes, coûts, livraisons</p>
+            </div>
+          </a>
 
-      <!-- Feature 4 -->
-      <div class="feature-card">
-        <div class="feature-icon-container">
-          <i class="fas fa-crystal-ball"></i>
-        </div>
-        <h3 class="feature-title">Prévisions IA</h3>
-        <p class="feature-description">
-          Anticipez les tendances du mois suivant grâce aux modèles 
-          prédictifs avec un taux de confiance de 87%.
-        </p>
-        <a routerLink="/previsions" class="feature-link">
-          Voir les prévisions <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
+          <a routerLink="/anomalies" class="feature-mini-card">
+            <div class="feature-mini-icon">⚠️</div>
+            <div>
+              <h3>Détection IA</h3>
+              <p>Alertes automatiques</p>
+            </div>
+          </a>
 
-      <!-- Feature 5 -->
-      <div class="feature-card">
-        <div class="feature-icon-container">
-          <i class="fas fa-chart-bar"></i>
-        </div>
-        <h3 class="feature-title">Power BI Intégré</h3>
-        <p class="feature-description">
-          Accédez à des analyses approfondies avec des visualisations 
-          interactives et des rapports personnalisables.
-        </p>
-        <a routerLink="/powerbi" class="feature-link">
-          Ouvrir Power BI <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
+          <a routerLink="/powerbi" class="feature-mini-card">
+            <div class="feature-mini-icon">📊</div>
+            <div>
+              <h3>Power BI</h3>
+              <p>Analyses approfondies</p>
+            </div>
+          </a>
 
-      <!-- Feature 6 -->
-      <div class="feature-card">
-        <div class="feature-icon-container">
-          <i class="fas fa-envelope"></i>
+          <a routerLink="/previsions" class="feature-mini-card">
+            <div class="feature-mini-icon">🔮</div>
+            <div>
+              <h3>Prévisions</h3>
+              <p>Tendances futures</p>
+            </div>
+          </a>
         </div>
-        <h3 class="feature-title">Rapports Automatiques</h3>
-        <p class="feature-description">
-          Recevez des résumés mensuels par email avec les alertes 
-          critiques et les insights principaux.
-        </p>
-        <a routerLink="/rapports" class="feature-link">
-          Configurer <i class="fas fa-arrow-right"></i>
-        </a>
+
       </div>
 
     </div>
+
+    <!-- WORKFLOW BOTTOM BAR -->
+    <div class="workflow-bar">
+      <div class="workflow-mini-step">
+        <span class="workflow-num">1</span>
+        <span class="workflow-text">Importer Excel</span>
+      </div>
+      <div class="workflow-arrow-mini">→</div>
+      <div class="workflow-mini-step">
+        <span class="workflow-num">2</span>
+        <span class="workflow-text">Analyser IA</span>
+      </div>
+      <div class="workflow-arrow-mini">→</div>
+      <div class="workflow-mini-step">
+        <span class="workflow-num">3</span>
+        <span class="workflow-text">Décider</span>
+      </div>
+    </div>
+
   </div>
-
-  <!-- WORKFLOW SECTION -->
-  <div class="workflow-section">
-    <div class="section-header">
-      <h2 class="section-title">Comment ça marche ?</h2>
-      <p class="section-subtitle">3 étapes simples pour démarrer</p>
-    </div>
-
-    <div class="workflow-steps">
-      
-      <div class="workflow-step">
-        <div class="step-number">1</div>
-        <div class="step-icon">📂</div>
-        <h3 class="step-title-wf">Importez vos données</h3>
-        <p class="step-description">
-          Uploadez votre fichier Excel mensuel contenant les ventes, 
-          coûts logistiques, livraisons et incidents.
-        </p>
-      </div>
-
-      <div class="workflow-arrow">
-        <i class="fas fa-arrow-right"></i>
-      </div>
-
-      <div class="workflow-step">
-        <div class="step-number">2</div>
-        <div class="step-icon">🔍</div>
-        <h3 class="step-title-wf">Analysez les résultats</h3>
-        <p class="step-description">
-          Le système calcule automatiquement vos KPIs, détecte les anomalies 
-          et génère des prévisions.
-        </p>
-      </div>
-
-      <div class="workflow-arrow">
-        <i class="fas fa-arrow-right"></i>
-      </div>
-
-      <div class="workflow-step">
-        <div class="step-number">3</div>
-        <div class="step-icon">📊</div>
-        <h3 class="step-title-wf">Prenez des décisions</h3>
-        <p class="step-description">
-          Exploitez les insights via les dashboards interactifs et 
-          les rapports Power BI pour optimiser vos opérations.
-        </p>
-      </div>
-
-    </div>
-
-    <div class="workflow-cta">
-      <a routerLink="/dashboard" class="btn-workflow">
-        Commencer maintenant
-        <i class="fas fa-arrow-right"></i>
-      </a>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer class="home-footer">
-    <div class="footer-content">
-      <div class="footer-left">
-        <img src="assets/images/ola.jpg" alt="OLA" class="footer-logo">
-        <p class="footer-text">
-          © 2026 Ola Energy Tunisie<br>
-          Système Intelligent d'Analyse Logistique
-        </p>
-      </div>
-      <div class="footer-right">
-        <a href="#" class="footer-link">Aide</a>
-        <a href="#" class="footer-link">Documentation</a>
-        <a href="#" class="footer-link">Support</a>
-      </div>
-    </div>
-  </footer>
 
 </div>
