@@ -1,0 +1,151 @@
+<div class="ola-page">
+  <nav class="ola-nav">
+    <div class="nav-inner">
+
+      <!-- LEFT: brand -->
+      <div class="nav-left">
+        <img class="nav-logo" src="assets/images/ola.jpg" alt="OLA">
+        <div class="nav-brand">
+          <div class="nav-title">Dashboard Logistique</div>
+          <div class="nav-sub">Rapports • KPI • Prévisions</div>
+        </div>
+      </div>
+
+      <!-- CENTER: menu -->
+     <div class="nav-center">
+  <a class="nav-link"
+     routerLink="/accueil"
+     routerLinkActive="active"
+     [routerLinkActiveOptions]="{ exact: true }">
+    Accueil
+  </a>
+
+  <a class="nav-link"
+     routerLink="/dashboard"
+     routerLinkActive="active">
+    KPI
+  </a>
+
+  <a class="nav-link"
+     routerLink="/anomalies"
+     routerLinkActive="active">
+    Anomalies
+  </a>
+
+  <a class="nav-link"
+     routerLink="/powerbi"
+     routerLinkActive="active">
+    Power BI
+  </a>
+</div>
+
+
+      <!-- RIGHT: profile -->
+      <div class="nav-right">
+        <div class="profile">
+          <button class="profile-btn" type="button">
+            <span class="avatar">M</span>
+            <span class="profile-text">
+              <span class="name">Manager Logistique</span>
+              <span class="role">MANAGER</span>
+            </span>
+            <span class="chev">▾</span>
+          </button>
+
+          <div class="profile-menu">
+            <a class="menu-item" routerLink="/profile">Profil</a>
+            <a class="menu-item" routerLink="/settings">Paramètres</a>
+            <button class="menu-item danger" type="button">Déconnexion</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- Filtres -->
+  <div class="filters-card">
+
+    <!-- ✅ IMPORT: toujours visible -->
+    <div class="import-row">
+      <input
+        #fileInput
+        type="file"
+        accept=".xlsx,.xls"
+        (change)="onFileSelected($event)"
+        hidden
+      />
+
+      <button class="btn-file" (click)="fileInput.click()">
+        choose file
+      </button>
+
+      <span class="file-name">
+        {{ selectedFile?.name || 'Aucun fichier choisi' }}
+      </span>
+
+      <button
+        class="btn-import"
+        (click)="importExcel()"
+        [disabled]="!selectedFile || importing"
+      >
+        {{ importing ? 'Import...' : 'Importer Excel' }}
+      </button>
+
+      <div class="import-msg" *ngIf="importMsg">{{ importMsg }}</div>
+    </div>
+
+    <!-- ✅ Message guide tant que pas importé -->
+    <div class="hint" *ngIf="!fileImported">
+      Importez un fichier Excel pour afficher les filtres et les KPI.
+    </div>
+
+    <!-- ✅ FILTRES: affichés seulement après import -->
+    <div class="filters-grid" *ngIf="fileImported">
+      <div class="field">
+        <label>Pays</label>
+        <select [(ngModel)]="selectedAffiliate" (change)="onAffiliateChange()">
+          <option *ngFor="let a of affiliates" [value]="a">{{ a }}</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Mois</label>
+        <select [(ngModel)]="selectedMonth">
+          <option value="ALL">ALL (AVG)</option>
+          <option *ngFor="let m of months" [value]="m">{{ m }}</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Category</label>
+        <select [(ngModel)]="selectedCategory">
+          <option value="ALL">ALL</option>
+          <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+        </select>
+      </div>
+
+      <button class="btn-apply"
+              (click)="apply()"
+              [disabled]="!selectedAffiliate || !selectedMonth || !selectedYear || loading">
+        {{ loading ? 'Chargement...' : 'Appliquer' }}
+      </button>
+    </div>
+
+    <!-- erreurs -->
+    <div class="hint" *ngIf="errorMsg">{{ errorMsg }}</div>
+  </div>
+
+  <!-- KPI : seulement après import -->
+  <div class="kpi-grid" *ngIf="fileImported">
+    <div class="kpi-card" *ngFor="let k of kpis">
+      <div class="kpi-label">{{ prettyLabel(k.kpiCode) }}</div>
+      <div class="kpi-value">{{ formatValue(k.value, k.kpiCode) }}</div>
+      <div class="kpi-sub">{{ k.affiliate }} • {{ k.month }} {{ k.year }}</div>
+    </div>
+
+    <div class="empty" *ngIf="!loading && kpis.length === 0 && !errorMsg">
+      Sélectionne les filtres puis clique sur <b>Appliquer</b>.
+    </div>
+  </div>
+</div>

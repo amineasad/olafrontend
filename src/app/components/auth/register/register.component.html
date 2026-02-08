@@ -1,0 +1,183 @@
+<div class="ola-page">
+  <main class="main-wrapper">
+    <div class="bg-overlay"></div>
+
+    <div class="content">
+      <div class="container container-right">
+
+        <!-- ✅ Zone gauche vide (pour laisser le background visible) -->
+        <div class="left-spacer"></div>
+
+        <!-- ✅ Formulaire à droite -->
+        <div class="form-section">
+          <div class="form-card">
+
+            <div class="card-header">
+              <h2>Créer mon compte</h2>
+              <p class="card-sub">Compte professionnel — Managers Ola Energy</p>
+              <a routerLink="/login" class="top-link">Se connecter</a>
+            </div>
+
+            <!-- Alerts -->
+            <div *ngIf="errorMsg" class="alert alert-error">
+              <span>{{ errorMsg }}</span>
+            </div>
+
+            <div *ngIf="successMsg" class="alert alert-success">
+              <span>{{ successMsg }}</span>
+            </div>
+
+            <!-- Form -->
+            <form (ngSubmit)="onSubmit()" #f="ngForm" novalidate>
+
+              <div class="form-row">
+                <div class="input-group">
+                  <label>Nom <span>*</span></label>
+                  <input
+                    type="text"
+                    name="nom"
+                    [(ngModel)]="user.nom"
+                    placeholder="Ben Salah"
+                    required
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label>Prénom <span>*</span></label>
+                  <input
+                    type="text"
+                    name="prenom"
+                    [(ngModel)]="user.prenom"
+                    placeholder="Hady"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label>Email professionnel <span>*</span></label>
+                <input
+                  type="email"
+                  name="email"
+                  [(ngModel)]="user.email"
+                  placeholder="nom.prenom@olaenergy.com"
+                  required
+                />
+              </div>
+
+              <div class="form-row">
+                <div class="input-group">
+                  <label>Poste <span>*</span></label>
+                  <input
+                    type="text"
+                    name="poste"
+                    [(ngModel)]="user.poste"
+                    placeholder="Manager"
+                    required
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label>Département <span>*</span></label>
+                  <select name="departement" [(ngModel)]="user.departement" required>
+                    <option value="" disabled selected>Sélectionner</option>
+                    <option value="Direction">Direction</option>
+                    <option value="Commercial">Commercial</option>
+                    <option value="Ventes">Ventes</option>
+                    <option value="Logistique">Logistique</option>
+                    <option value="Finance">Finance</option>
+                    <option value="RH">Ressources Humaines</option>
+                    <option value="HSE">HSE</option>
+                    <option value="IT">IT</option>
+                    <option value="Autre">Autre</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="input-group">
+                  <label>Région</label>
+                  <input
+                    type="text"
+                    name="region"
+                    [(ngModel)]="user.region"
+                    placeholder="Tunis, Sfax..."
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label>Téléphone</label>
+                  <input
+                    type="text"
+                    name="telephone"
+                    [(ngModel)]="user.telephone"
+                    placeholder="+216 XX XXX XXX"
+                  />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="input-group">
+                  <label>Mot de passe <span>*</span></label>
+                  <input
+                    type="password"
+                    name="motDePasse"
+                    [(ngModel)]="user.motDePasse"
+                    placeholder="Min. 8 caractères"
+                    required
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label>Confirmer <span>*</span></label>
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    [(ngModel)]="confirmPassword"
+                    placeholder="Répéter"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label>Photo de profil <span class="opt">(optionnel)</span></label>
+
+                <div class="file-zone" [class.active]="photoPreview">
+                  <input
+                    type="file"
+                    (change)="onFileSelected($event)"
+                    accept="image/*"
+                    id="file"
+                  />
+
+                  <label for="file" *ngIf="!photoPreview" class="file-label">
+                    <span class="file-title">Choisir une image</span>
+                    <span class="file-sub">PNG/JPG — optionnel</span>
+                  </label>
+
+                  <div class="preview" *ngIf="photoPreview">
+                    <img [src]="photoPreview" alt="Photo" />
+                    <button type="button" (click)="removePhoto()" class="remove-btn">×</button>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="submit-button" [disabled]="loading">
+                <span *ngIf="!loading">Créer mon compte</span>
+                <span *ngIf="loading">Création...</span>
+              </button>
+
+              <p class="footer-text">
+                Déjà inscrit ? <a routerLink="/login">Se connecter</a>
+              </p>
+
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>

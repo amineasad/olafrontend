@@ -1,0 +1,436 @@
+/* ============================= */
+/* PAGE */
+/* ============================= */
+.ola-page{
+  position: relative;
+  min-height: 100vh;
+
+  padding-top: 140px;     /* espace pour navbar fixed */
+  padding-left: 24px;
+  padding-right: 48px;
+  padding-bottom: 24px;
+
+  background:
+    linear-gradient(135deg, rgba(0,48,135,.35), rgba(0,48,135,.35)),
+    url('/assets/images/ola-station.jpg') center/cover no-repeat;
+}
+
+/* ============================= */
+/* HEADER / TITRE */
+/* ============================= */
+.header{
+  color: #fff;
+  margin-bottom: 18px;
+
+  .title{
+    display: flex;
+    gap: 12px;
+    align-items: center;
+
+    h1{ margin: 0; font-size: 22px; }
+    p{ margin: 0; opacity: .9; font-size: 13px; }
+
+    .logo{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: white;
+      border-radius: 10px;
+      padding: 6px;
+
+      width: 46px;
+      height: 46px;
+
+      box-shadow: 0 4px 12px rgba(0,0,0,.15);
+
+      img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+}
+
+/* ============================= */
+/* FILTERS */
+/* ============================= */
+.filters-card{
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 18px;
+  padding: 18px;
+  backdrop-filter: blur(12px);
+  margin-bottom: 18px;
+}
+
+.filters-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 14px;
+  align-items: end;
+
+  .field{
+    label{
+      display: block;
+      color: #fff;
+      font-size: 12px;
+      margin-bottom: 6px;
+      opacity: .95;
+    }
+
+    select{
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: none;
+      outline: none;
+    }
+  }
+}
+
+.btn-apply{
+  padding: 11px 18px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  background: #003087;
+  color: #fff;
+  font-weight: 700;
+
+  &:disabled{
+    opacity: .6;
+    cursor: not-allowed;
+  }
+}
+
+.hint{
+  margin-top: 10px;
+  color: #fff;
+  font-size: 12px;
+  opacity: .9;
+}
+
+/* ============================= */
+/* KPI */
+/* ============================= */
+.kpi-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.kpi-card{
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 18px;
+  padding: 18px;
+  backdrop-filter: blur(12px);
+  color: #fff;
+
+  .kpi-label{ font-size: 13px; opacity: .95; margin-bottom: 10px; }
+  .kpi-value{ font-size: 26px; font-weight: 900; }
+  .kpi-sub{ margin-top: 10px; font-size: 12px; opacity: .8; }
+}
+
+.empty{
+  color: #fff;
+  opacity: .9;
+  padding: 18px;
+}
+
+/* ============================= */
+/* IMPORT */
+/* ============================= */
+.import-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:12px;
+  flex-wrap: wrap;
+}
+
+.btn-file, .btn-import{
+  padding:10px 16px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.25);
+  background: rgba(255,255,255,.15);
+  color:#fff;
+  cursor:pointer;
+  backdrop-filter: blur(10px);
+}
+
+.btn-import:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+.file-name{
+  color:#fff;
+  opacity:.9;
+  font-size:14px;
+  max-width:260px;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.import-msg{
+  width:100%;
+  margin-top:6px;
+  color:#fff;
+  font-size:13px;
+  opacity:.95;
+}
+
+/* ============================= */
+/* TOP ACTIONS (si tu les utilises) */
+/* ============================= */
+.top-actions{
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 10;
+}
+
+.pill{
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.22);
+  backdrop-filter: blur(12px);
+  color:#fff;
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-weight: 700;
+}
+
+.logout-pill{
+  cursor: pointer;
+  border: none;
+}
+
+.logout-pill:hover{
+  background: rgba(255,255,255,.3);
+}
+
+/* ============================= */
+/* NAVBAR (FIXED) */
+/* ============================= */
+.ola-nav{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 18px 28px;
+  box-sizing: border-box; /* ✅ évite débordement */
+}
+
+.nav-inner{
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  height: 96px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding: 0 26px;
+  box-sizing: border-box; /* ✅ important */
+
+  background: rgba(0, 48, 135, 0.42);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 24px;
+
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* ✅ clé du fix : en flex, permettre le shrink */
+.nav-left,
+.nav-center,
+.nav-right{
+  min-width: 0;
+}
+
+/* LEFT */
+.nav-left{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 280px;
+}
+
+.nav-logo{
+  width: 48px;
+  height: 48px;
+  padding: 6px;
+  border-radius: 14px;
+  background: #ffffff;
+  object-fit: contain;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.nav-title{
+  font-size: 16px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.nav-sub{
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* CENTER */
+.nav-center{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-link{
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.95);
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.nav-link:hover{
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.nav-link.active{
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
+/* RIGHT */
+.nav-right{
+  display: flex;
+  justify-content: flex-end;
+  min-width: 260px;
+}
+
+/* PROFILE */
+.profile{ position: relative; }
+
+.profile-btn{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 16px;
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+
+  color: #ffffff;
+  font-weight: 800;
+  cursor: pointer;
+
+  max-width: 280px;     /* ✅ empêche le débordement */
+  min-width: 0;         /* ✅ autorise le shrink */
+}
+
+.avatar{
+  width: 38px;
+  height: 38px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.25);
+  font-size: 15px;
+  font-weight: 900;
+  flex: 0 0 auto;
+}
+
+/* ✅ texte coupé proprement */
+.profile-text{
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  min-width: 0; /* ✅ ellipsis marche en flex */
+}
+
+.profile-text .name,
+.profile-text .role{
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-text .name{ font-size: 13px; }
+.profile-text .role{ font-size: 11px; opacity: 0.9; }
+
+.chev{
+  font-size: 14px;
+  opacity: 0.85;
+  flex: 0 0 auto;
+}
+
+/* DROPDOWN */
+.profile-menu{
+  position: absolute;
+  top: 64px;
+  right: 0;
+
+  min-width: 200px;
+  padding: 10px;
+
+  background: rgba(0, 48, 135, 0.6);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 18px;
+
+  display: none;
+}
+
+.profile:hover .profile-menu{ display: block; }
+
+.menu-item{
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+
+  background: transparent;
+  border: none;
+
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffffff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.menu-item:hover{
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.menu-item.danger{
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1000px){
+  .nav-center{ display: none; }
+  .nav-left{ min-width: unset; }
+  .nav-right{ min-width: unset; }
+  .profile-btn{ max-width: 220px; }
+}

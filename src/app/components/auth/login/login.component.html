@@ -1,0 +1,68 @@
+<div class="ola-page">
+  <main class="main-wrapper">
+    <div class="bg-overlay"></div>
+
+    <div class="content">
+      <div class="container">
+
+        <!-- LEFT empty (hidden in css for same layout as register) -->
+        <div class="welcome-section"></div>
+
+        <!-- RIGHT: GLASS CARD -->
+        <div class="form-section">
+          <div class="form-card">
+
+            <div class="card-header">
+              <a routerLink="/register">Créer un compte</a>
+              <h2>Se connecter</h2>
+              <p>Accès sécurisé — Managers Ola Energy</p>
+            </div>
+
+            <div *ngIf="errorMsg" class="alert alert-error">
+              <span>{{ errorMsg }}</span>
+            </div>
+
+            <form (ngSubmit)="onSubmit()" #f="ngForm" novalidate>
+
+              <div class="input-group">
+                <label>Email professionnel <span>*</span></label>
+                <input
+                  type="email"
+                  name="email"
+                  [(ngModel)]="email"
+                  placeholder="nom.prenom@olaenergy.com"
+                  required
+                />
+              </div>
+
+              <div class="input-group">
+                <label>Mot de passe <span>*</span></label>
+                <input
+                  type="password"
+                  name="password"
+                  [(ngModel)]="password"
+                  placeholder="Votre mot de passe"
+                  required
+                />
+              </div>
+
+              <button type="submit" class="submit-button" [disabled]="loading">
+                <span *ngIf="!loading">Se connecter</span>
+                <span *ngIf="loading">
+                  <span class="loader"></span>
+                  Connexion...
+                </span>
+              </button>
+
+              <p class="footer-text">
+                Pas de compte ? <a routerLink="/register">Créer un compte</a>
+              </p>
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>

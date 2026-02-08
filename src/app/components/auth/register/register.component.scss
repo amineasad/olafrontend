@@ -1,0 +1,242 @@
+// ========================================
+// OLA ENERGY – TRUE GLASS REGISTER
+// ========================================
+
+$ola-blue: #003087;
+$ola-orange: #ff6b00;
+$white: #ffffff;
+$text-dark: #0f172a;
+
+// ================= BASE =================
+:host {
+  display: block;
+  height: 100vh;
+}
+
+.ola-page {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+// ================= BACKGROUND =================
+.main-wrapper {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0, 48, 135, 0.35),
+      rgba(0, 48, 135, 0.35)
+    ),
+    url('/assets/images/ola-station.jpg') center / cover no-repeat;
+}
+
+.bg-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,107,0,0.15), transparent 60%),
+    radial-gradient(circle at 80% 60%, rgba(255,107,0,0.12), transparent 60%);
+}
+
+// ================= LAYOUT =================
+.content {
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.container {
+  max-width: 1400px;
+  margin: auto;
+  padding: 0 40px;
+
+  display: grid;
+  grid-template-columns: 1fr 520px;
+  align-items: center;
+
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+}
+
+// cache la partie gauche
+.welcome-section {
+  display: none;
+}
+
+// ================= GLASS CARD =================
+.form-card {
+  background: rgba(255, 255, 255, 0.12); // 🔥 TRANSPARENT
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+
+  border-radius: 22px;
+  padding: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.45);
+
+  @media (max-width: 600px) {
+    padding: 20px;
+  }
+}
+
+// ================= HEADER =================
+.card-header {
+  margin-bottom: 16px;
+
+  h2 {
+    color: $white;
+    font-size: 26px;
+    font-weight: 900;
+    margin: 0;
+    text-shadow: 0 8px 25px rgba(0,0,0,.45);
+  }
+
+  p {
+    margin-top: 6px;
+    font-size: 13px;
+    color: rgba(255,255,255,.85);
+    text-shadow: 0 6px 18px rgba(0,0,0,.45);
+  }
+
+  a {
+    float: right;
+    font-size: 13px;
+    font-weight: 800;
+    color: $ola-orange;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// ================= FORM =================
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  label {
+    color: rgba(255,255,255,.95);
+    font-size: 13px;
+    font-weight: 800;
+    text-shadow: 0 4px 12px rgba(0,0,0,.45);
+
+    span {
+      color: $ola-orange;
+    }
+  }
+
+  input,
+  select {
+    height: 42px;
+    padding: 0 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    outline: none;
+
+    background: rgba(255,255,255,0.88); // 👈 champs visibles
+    border: 1px solid rgba(255,255,255,0.5);
+    color: $text-dark;
+
+    transition: all .2s ease;
+
+    &::placeholder {
+      color: rgba(15,23,42,.45);
+    }
+
+    &:focus {
+      background: rgba(255,255,255,0.95);
+      box-shadow:
+        0 0 0 3px rgba(255,107,0,.25),
+        0 10px 25px rgba(0,0,0,.25);
+    }
+  }
+}
+
+// ================= FILE UPLOAD =================
+.file-zone {
+  border: 2px dashed rgba(255,255,255,.6);
+  border-radius: 14px;
+  padding: 12px;
+  text-align: center;
+  background: rgba(255,255,255,.15);
+  backdrop-filter: blur(8px);
+
+  input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  span {
+    color: $ola-orange;
+    font-weight: 900;
+    font-size: 13px;
+    text-shadow: 0 4px 12px rgba(0,0,0,.45);
+  }
+}
+
+// ================= BUTTON =================
+.submit-button {
+  height: 46px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, $ola-blue, #0047b3);
+  color: white;
+  font-weight: 900;
+  font-size: 15px;
+
+  box-shadow: 0 18px 40px rgba(0,0,0,.35);
+  transition: all .25s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, $ola-orange, #ff8533);
+  }
+}
+
+// ================= FOOTER =================
+.footer-text {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 13px;
+  color: rgba(255,255,255,.85);
+  text-shadow: 0 4px 12px rgba(0,0,0,.45);
+
+  a {
+    color: $ola-orange;
+    font-weight: 900;
+  }
+}
