@@ -12,33 +12,32 @@
       </div>
 
       <!-- CENTER: menu -->
-     <div class="nav-center">
-  <a class="nav-link"
-     routerLink="/accueil"
-     routerLinkActive="active"
-     [routerLinkActiveOptions]="{ exact: true }">
-    Accueil
-  </a>
+      <div class="nav-center">
+        <a class="nav-link"
+           routerLink="/accueil"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: true }">
+          Accueil
+        </a>
 
-  <a class="nav-link"
-     routerLink="/dashboard"
-     routerLinkActive="active">
-    KPI
-  </a>
+        <a class="nav-link"
+           routerLink="/dashboard"
+           routerLinkActive="active">
+          KPI
+        </a>
 
-  <a class="nav-link"
-     routerLink="/anomalies"
-     routerLinkActive="active">
-    Anomalies
-  </a>
+        <a class="nav-link"
+           routerLink="/anomalies"
+           routerLinkActive="active">
+          Anomalies
+        </a>
 
-  <a class="nav-link"
-     routerLink="/powerbi"
-     routerLinkActive="active">
-    Power BI
-  </a>
-</div>
-
+        <a class="nav-link"
+           routerLink="/powerbi"
+           routerLinkActive="active">
+          Power BI
+        </a>
+      </div>
 
       <!-- RIGHT: profile -->
       <div class="nav-right">
@@ -125,11 +124,59 @@
         </select>
       </div>
 
-      <button class="btn-apply"
-              (click)="apply()"
-              [disabled]="!selectedAffiliate || !selectedMonth || !selectedYear || loading">
-        {{ loading ? 'Chargement...' : 'Appliquer' }}
-      </button>
+      <!-- ✅ ACTIONS À DROITE : Appliquer + Envoyer au manager -->
+      <div class="actions">
+        <button class="btn-apply"
+                (click)="apply()"
+                [disabled]="!selectedAffiliate || !selectedMonth || !selectedYear || loading">
+          {{ loading ? 'Chargement...' : 'Appliquer' }}
+        </button>
+
+        <button class="btn-send"
+                type="button"
+                (click)="toggleMailForm()"
+                [disabled]="sendingMail">
+          {{ sendingMail ? 'Envoi...' : 'Envoyer au manager' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- ✅ MINI FORM MAIL (apparaît au clic) -->
+    <div class="mail-card" *ngIf="fileImported && showMailForm">
+      <div class="mail-grid">
+        <div class="mail-field">
+          <label>Email manager</label>
+          <input type="email" [(ngModel)]="managerEmail" placeholder="manager.logistique@outlook.com">
+        </div>
+
+        <div class="mail-field">
+          <label>Année</label>
+          <input type="text" [(ngModel)]="mailYear" placeholder="2026">
+        </div>
+
+        <div class="mail-field">
+          <label>Lien dashboard</label>
+          <input type="text" [(ngModel)]="dashboardUrl" placeholder="http://localhost:4200/login">
+        </div>
+
+        <div class="mail-actions">
+          <button class="btn-apply"
+                  type="button"
+                  (click)="sendMailToManager()"
+                  [disabled]="sendingMail || !managerEmail">
+            {{ sendingMail ? 'Envoi...' : 'Envoyer' }}
+          </button>
+
+          <button class="btn-cancel"
+                  type="button"
+                  (click)="toggleMailForm()">
+            Annuler
+          </button>
+        </div>
+      </div>
+
+      <div class="hint success" *ngIf="mailSuccess">{{ mailSuccess }}</div>
+      <div class="hint error" *ngIf="mailError">{{ mailError }}</div>
     </div>
 
     <!-- erreurs -->
