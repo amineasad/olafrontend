@@ -1,70 +1,16 @@
 /* =========================================================
-   PAGE (DASHBOARD) - STYLE LISIBLE COMME HOMEPAGE
+   PAGE (DASHBOARD)
 ========================================================= */
 .ola-page{
   position: relative;
   min-height: 100vh;
-
-  /* espace pour navbar fixed */
   padding-top: 140px;
   padding-left: 24px;
   padding-right: 48px;
   padding-bottom: 24px;
-
-  /* Background plus foncé pour meilleure lisibilité */
   background:
     linear-gradient(135deg, rgba(0,48,135,.65), rgba(0,48,135,.65)),
     url('/assets/images/ola-station.jpg') center/cover no-repeat;
-}
-
-/* =========================================================
-   HEADER / TITRE
-========================================================= */
-.header{
-  color: #fff;
-  margin-bottom: 18px;
-
-  .title{
-    display: flex;
-    gap: 12px;
-    align-items: center;
-
-    h1{ 
-      margin: 0; 
-      font-size: 22px; 
-      font-weight: 900;
-      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
-      letter-spacing: 0.3px;
-    }
-    
-    p{ 
-      margin: 0; 
-      font-size: 13px; 
-      font-weight: 600;
-      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
-    }
-
-    .logo{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      background: #fff;
-      border-radius: 12px;
-      padding: 6px;
-
-      width: 46px;
-      height: 46px;
-
-      box-shadow: 0 8px 20px rgba(0,0,0,.3);
-
-      img{
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
-    }
-  }
 }
 
 /* =========================================================
@@ -77,12 +23,13 @@
   padding: 20px;
   backdrop-filter: blur(15px);
   margin-bottom: 20px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
 }
 
+/* ✅ 5 colonnes : Pays | Année | Mois | Category | Actions */
 .filters-grid{
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr auto;
   gap: 16px;
   align-items: end;
 
@@ -93,7 +40,7 @@
       font-size: 13px;
       font-weight: 800;
       margin-bottom: 8px;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
       letter-spacing: 0.3px;
     }
 
@@ -101,17 +48,17 @@
       width: 100%;
       padding: 12px 14px;
       border-radius: 12px;
-      border: 2px solid rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255,255,255,0.2);
       outline: none;
       font-weight: 600;
       font-size: 14px;
-      background: rgba(255, 255, 255, 0.95);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       transition: all 0.3s ease;
 
       &:focus{
         border-color: #FF6B35;
-        box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2);
+        box-shadow: 0 0 0 3px rgba(255,107,53,0.2);
       }
     }
   }
@@ -126,13 +73,13 @@
   color: #fff;
   font-weight: 800;
   font-size: 14px;
-  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+  box-shadow: 0 6px 20px rgba(255,107,53,0.4);
   transition: all 0.3s ease;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 6px rgba(0,0,0,0.3);
 
   &:hover:not(:disabled){
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.6);
+    box-shadow: 0 10px 30px rgba(255,107,53,0.6);
   }
 
   &:disabled{
@@ -147,7 +94,7 @@
   color: #fff;
   font-size: 13px;
   font-weight: 600;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
 }
 
 /* =========================================================
@@ -166,38 +113,38 @@
   padding: 22px;
   backdrop-filter: blur(15px);
   color: #fff;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
   transition: all 0.3s ease;
 
   &:hover{
     transform: translateY(-4px);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.5);
     background: rgba(255,255,255,.24);
-    border-color: rgba(255, 107, 53, 0.5);
+    border-color: rgba(255,107,53,0.5);
   }
 
-  .kpi-label{ 
-    font-size: 13px; 
+  .kpi-label{
+    font-size: 13px;
     font-weight: 800;
-    margin-bottom: 12px; 
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    margin-bottom: 12px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.6);
     letter-spacing: 0.5px;
     text-transform: uppercase;
   }
-  
-  .kpi-value{ 
-    font-size: 28px; 
+
+  .kpi-value{
+    font-size: 28px;
     font-weight: 900;
-    text-shadow: 0 3px 15px rgba(0, 0, 0, 0.7);
+    text-shadow: 0 3px 15px rgba(0,0,0,0.7);
     color: #FFD700;
-    filter: drop-shadow(0 2px 8px rgba(255, 215, 0, 0.5));
+    filter: drop-shadow(0 2px 8px rgba(255,215,0,0.5));
   }
-  
-  .kpi-sub{ 
-    margin-top: 12px; 
-    font-size: 13px; 
+
+  .kpi-sub{
+    margin-top: 12px;
+    font-size: 13px;
     font-weight: 600;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.6);
   }
 }
 
@@ -205,7 +152,7 @@
   color: #fff;
   font-weight: 600;
   padding: 20px;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 2px 12px rgba(0,0,0,0.7);
   background: rgba(255,255,255,.15);
   border: 2px solid rgba(255,255,255,.3);
   border-radius: 16px;
@@ -234,14 +181,14 @@
   font-size: 14px;
   cursor: pointer;
   backdrop-filter: blur(12px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
   transition: all 0.3s ease;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 2px 6px rgba(0,0,0,0.4);
 
   &:hover:not(:disabled){
     background: rgba(255,255,255,.28);
     transform: translateY(-2px);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.4);
   }
 }
 
@@ -258,8 +205,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
-  background: rgba(0, 0, 0, 0.2);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.2);
   padding: 8px 16px;
   border-radius: 12px;
   border-left: 3px solid #FF6B35;
@@ -271,297 +218,16 @@
   color: #fff;
   font-size: 13px;
   font-weight: 700;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
-  background: rgba(0, 0, 0, 0.2);
+  text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.2);
   padding: 10px 16px;
   border-radius: 12px;
   border-left: 3px solid #4ade80;
 }
 
 /* =========================================================
-   TOP ACTIONS
+   ACTIONS
 ========================================================= */
-.top-actions{
-  position: absolute;
-  top: 24px;
-  right: 24px;
-
-  display: flex;
-  align-items: center;
-  gap: 14px;
-
-  z-index: 10;
-}
-
-.pill{
-  background: rgba(255,255,255,.20);
-  border: 2px solid rgba(255,255,255,.35);
-  backdrop-filter: blur(15px);
-  color: #fff;
-
-  border-radius: 14px;
-  padding: 12px 18px;
-  font-weight: 800;
-  font-size: 14px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-}
-
-.logout-pill{
-  cursor: pointer;
-  border: none;
-  transition: all 0.3s ease;
-
-  &:hover{
-    background: rgba(255,107,53,.3);
-    border-color: rgba(255,107,53,.6);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 28px rgba(255, 107, 53, 0.4);
-  }
-}
-
-/* =========================================================
-   NAVBAR (FULL WIDTH + RECTANGULAIRE - INCHANGÉE)
-========================================================= */
-.ola-nav{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-
-  padding: 0;
-  box-sizing: border-box;
-
-  background: rgba(0,48,135,.58);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255,255,255,.18);
-}
-
-.nav-inner{
-  width: 100%;
-  max-width: 1500px;
-  margin: 0 auto;
-  height: 96px;
-  padding: 0 32px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-
-  box-sizing: border-box;
-}
-
-.nav-left,
-.nav-center,
-.nav-right{
-  min-width: 0;
-}
-
-/* ---------------- LEFT ---------------- */
-.nav-left{
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex: 0 0 auto;
-}
-
-.nav-logo{
-  width: 48px;
-  height: 48px;
-  padding: 6px;
-
-  background: #fff;
-  border-radius: 12px;
-  object-fit: contain;
-
-  box-shadow: 0 6px 16px rgba(0,0,0,.2);
-}
-
-.nav-title{
-  color: #fff;
-  font-weight: 900;
-  font-size: 16px;
-}
-
-.nav-sub{
-  color: rgba(255,255,255,.85);
-  font-size: 12px;
-}
-
-/* ---------------- CENTER ---------------- */
-.nav-center{
-  display: flex;
-  align-items: center;
-  gap: 14px;
-
-  flex: 1;
-  justify-content: center;
-  min-width: 0;
-}
-
-.nav-link{
-  padding: 12px 16px;
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 14px;
-  color: #fff;
-  transition: .25s;
-
-  white-space: nowrap;
-}
-
-.nav-link:hover{
-  background: rgba(255,255,255,.15);
-}
-
-.nav-link.active{
-  background: rgba(255,255,255,.22);
-}
-
-/* ---------------- RIGHT ---------------- */
-.nav-right{
-  display: flex;
-  justify-content: flex-end;
-  flex: 0 0 auto;
-}
-
-/* ---------------- PROFILE ---------------- */
-.profile{ position: relative; }
-
-.profile-btn{
-  display: flex;
-  align-items: center;
-  gap: 12px;
-
-  padding: 10px 14px;
-  border-radius: 10px;
-  background: rgba(255,255,255,.16);
-  border: 1px solid rgba(255,255,255,.20);
-  backdrop-filter: blur(12px);
-
-  color: #fff;
-  font-weight: 800;
-  cursor: pointer;
-
-  max-width: 280px;
-  min-width: 0;
-}
-
-.avatar{
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background: rgba(255,255,255,.25);
-
-  display: grid;
-  place-items: center;
-
-  font-size: 15px;
-  font-weight: 900;
-  flex: 0 0 auto;
-}
-
-.profile-text{
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
-  min-width: 0;
-}
-
-.profile-text .name,
-.profile-text .role{
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.profile-text .name{ font-size: 13px; }
-.profile-text .role{ font-size: 11px; opacity: .9; }
-
-.chev{
-  font-size: 14px;
-  opacity: .85;
-  flex: 0 0 auto;
-}
-
-/* ---------------- DROPDOWN ---------------- */
-.profile-menu{
-  position: absolute;
-  right: 0;
-  top: 64px;
-
-  min-width: 200px;
-  padding: 10px;
-
-  background: rgba(0,48,135,.70);
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(255,255,255,.20);
-  border-radius: 12px;
-  display: none;
-}
-
-.profile:hover .profile-menu{ display: block; }
-
-.menu-item{
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: none;
-  background: transparent;
-
-  font-size: 14px;
-  font-weight: 800;
-  color: #fff;
-  text-align: left;
-  cursor: pointer;
-  text-decoration: none;
-  display: block;
-}
-
-.menu-item:hover{
-  background: rgba(255,255,255,.16);
-}
-
-.menu-item.danger{
-  background: rgba(255,255,255,.10);
-}
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-@media (max-width: 1000px){
-  .nav-center{ display: none; }
-  .profile-btn{ max-width: 220px; }
-  
-  .filters-grid{
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 600px){
-  .ola-page{
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .nav-inner{
-    padding: 0 16px;
-  }
-  
-  .kpi-grid{
-    grid-template-columns: 1fr;
-  }
-}
-/* ✅ AJOUT : actions à droite (Appliquer + Envoyer) */
 .actions{
   display: flex;
   gap: 12px;
@@ -569,18 +235,15 @@
   align-items: end;
 }
 
-/* ✅ Bouton Envoyer au manager : même “vibe” que Appliquer mais plus neutre */
 .btn-send{
   padding: 13px 22px;
   border: 2px solid rgba(255,255,255,.35);
   border-radius: 14px;
   cursor: pointer;
-
   background: rgba(255,255,255,.18);
   color: #fff;
   font-weight: 800;
   font-size: 14px;
-
   backdrop-filter: blur(12px);
   box-shadow: 0 6px 20px rgba(0,0,0,.3);
   transition: all .3s ease;
@@ -598,7 +261,9 @@
   }
 }
 
-/* ✅ Mini carte email */
+/* =========================================================
+   MAIL CARD
+========================================================= */
 .mail-card{
   margin-top: 16px;
   background: rgba(255,255,255,.18);
@@ -622,24 +287,24 @@
   font-size: 13px;
   font-weight: 800;
   margin-bottom: 8px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
 }
 
 .mail-field input{
   width: 100%;
   padding: 12px 14px;
   border-radius: 12px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255,255,255,0.2);
   outline: none;
   font-weight: 600;
   font-size: 14px;
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   transition: all 0.3s ease;
 
   &:focus{
     border-color: #FF6B35;
-    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2);
+    box-shadow: 0 0 0 3px rgba(255,107,53,0.2);
   }
 }
 
@@ -664,7 +329,6 @@
   }
 }
 
-/* ✅ feedback message */
 .hint.success{
   margin-top: 10px;
   border-left: 3px solid #4ade80;
@@ -677,17 +341,114 @@
   padding-left: 10px;
 }
 
-@media (max-width: 1000px){
+/* =========================================================
+   NAVBAR
+========================================================= */
+.ola-nav{
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(0,48,135,.58);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,.18);
+}
+
+.nav-inner{
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  height: 96px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  box-sizing: border-box;
+}
+
+.nav-left{ display: flex; align-items: center; gap: 14px; flex: 0 0 auto; }
+.nav-center{ display: flex; align-items: center; gap: 14px; flex: 1; justify-content: center; }
+.nav-right{ display: flex; justify-content: flex-end; flex: 0 0 auto; }
+
+.nav-logo{
+  width: 48px; height: 48px; padding: 6px;
+  background: #fff; border-radius: 12px; object-fit: contain;
+  box-shadow: 0 6px 16px rgba(0,0,0,.2);
+}
+
+.nav-title{ color: #fff; font-weight: 900; font-size: 16px; }
+.nav-sub{ color: rgba(255,255,255,.85); font-size: 12px; }
+
+.nav-link{
+  padding: 12px 16px; border-radius: 12px;
+  text-decoration: none; font-weight: 800; font-size: 14px;
+  color: #fff; transition: .25s; white-space: nowrap;
+  &:hover{ background: rgba(255,255,255,.15); }
+  &.active{ background: rgba(255,255,255,.22); }
+}
+
+.profile{ position: relative; }
+
+.profile-btn{
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 14px; border-radius: 10px;
+  background: rgba(255,255,255,.16);
+  border: 1px solid rgba(255,255,255,.20);
+  backdrop-filter: blur(12px);
+  color: #fff; font-weight: 800; cursor: pointer;
+}
+
+.avatar{
+  width: 38px; height: 38px; border-radius: 10px;
+  background: rgba(255,255,255,.25);
+  display: grid; place-items: center;
+  font-size: 15px; font-weight: 900;
+}
+
+.profile-text{ display: flex; flex-direction: column; line-height: 1.1; }
+.profile-text .name{ font-size: 13px; }
+.profile-text .role{ font-size: 11px; opacity: .9; }
+.chev{ font-size: 14px; opacity: .85; }
+
+.profile-menu{
+  position: absolute; right: 0; top: 64px;
+  min-width: 200px; padding: 10px;
+  background: rgba(0,48,135,.70); backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,.20);
+  border-radius: 12px; display: none;
+}
+.profile:hover .profile-menu{ display: block; }
+
+.menu-item{
+  width: 100%; padding: 12px 14px; border-radius: 10px;
+  border: none; background: transparent;
+  font-size: 14px; font-weight: 800; color: #fff;
+  text-align: left; cursor: pointer; text-decoration: none; display: block;
+  &:hover{ background: rgba(255,255,255,.16); }
+  &.danger{ background: rgba(255,255,255,.10); }
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+@media (max-width: 1100px){
+  /* 5 colonnes → 2 lignes */
+  .filters-grid{
+    grid-template-columns: 1fr 1fr;
+  }
   .actions{
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .mail-grid{
-    grid-template-columns: 1fr;
-  }
-
-  .mail-actions{
+    grid-column: 1 / -1;
     justify-content: flex-start;
   }
+}
+
+@media (max-width: 700px){
+  .filters-grid{ grid-template-columns: 1fr; }
+  .nav-center{ display: none; }
+  .ola-page{ padding-left: 16px; padding-right: 16px; }
+  .nav-inner{ padding: 0 16px; }
+  .kpi-grid{ grid-template-columns: 1fr; }
+  .mail-grid{ grid-template-columns: 1fr; }
+  .mail-actions{ justify-content: flex-start; }
 }

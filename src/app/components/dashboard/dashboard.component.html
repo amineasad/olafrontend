@@ -13,30 +13,10 @@
 
       <!-- CENTER: menu -->
       <div class="nav-center">
-        <a class="nav-link"
-           routerLink="/accueil"
-           routerLinkActive="active"
-           [routerLinkActiveOptions]="{ exact: true }">
-          Accueil
-        </a>
-
-        <a class="nav-link"
-           routerLink="/dashboard"
-           routerLinkActive="active">
-          KPI
-        </a>
-
-        <a class="nav-link"
-           routerLink="/anomalies"
-           routerLinkActive="active">
-          Anomalies
-        </a>
-
-        <a class="nav-link"
-           routerLink="/powerbi"
-           routerLinkActive="active">
-          Power BI
-        </a>
+        <a class="nav-link" routerLink="/accueil" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
+        <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">KPI</a>
+        <a class="nav-link" routerLink="/anomalies" routerLinkActive="active">Anomalies</a>
+        <a class="nav-link" routerLink="/powerbi" routerLinkActive="active">Power BI</a>
       </div>
 
       <!-- RIGHT: profile -->
@@ -50,7 +30,6 @@
             </span>
             <span class="chev">▾</span>
           </button>
-
           <div class="profile-menu">
             <a class="menu-item" routerLink="/profile">Profil</a>
             <a class="menu-item" routerLink="/settings">Paramètres</a>
@@ -65,46 +44,37 @@
   <!-- Filtres -->
   <div class="filters-card">
 
-    <!-- ✅ IMPORT: toujours visible -->
+    <!-- IMPORT -->
     <div class="import-row">
-      <input
-        #fileInput
-        type="file"
-        accept=".xlsx,.xls"
-        (change)="onFileSelected($event)"
-        hidden
-      />
-
-      <button class="btn-file" (click)="fileInput.click()">
-        choose file
-      </button>
-
-      <span class="file-name">
-        {{ selectedFile?.name || 'Aucun fichier choisi' }}
-      </span>
-
-      <button
-        class="btn-import"
-        (click)="importExcel()"
-        [disabled]="!selectedFile || importing"
-      >
+      <input #fileInput type="file" accept=".xlsx,.xls" (change)="onFileSelected($event)" hidden />
+      <button class="btn-file" (click)="fileInput.click()">choose file</button>
+      <span class="file-name">{{ selectedFile?.name || 'Aucun fichier choisi' }}</span>
+      <button class="btn-import" (click)="importExcel()" [disabled]="!selectedFile || importing">
         {{ importing ? 'Import...' : 'Importer Excel' }}
       </button>
-
       <div class="import-msg" *ngIf="importMsg">{{ importMsg }}</div>
     </div>
 
-    <!-- ✅ Message guide tant que pas importé -->
+    <!-- Message guide tant que pas importé -->
     <div class="hint" *ngIf="!fileImported">
       Importez un fichier Excel pour afficher les filtres et les KPI.
     </div>
 
-    <!-- ✅ FILTRES: affichés seulement après import -->
+    <!-- FILTRES : affichés seulement après import -->
     <div class="filters-grid" *ngIf="fileImported">
+
       <div class="field">
         <label>Pays</label>
         <select [(ngModel)]="selectedAffiliate" (change)="onAffiliateChange()">
           <option *ngFor="let a of affiliates" [value]="a">{{ a }}</option>
+        </select>
+      </div>
+
+      <!-- ✅ NOUVEAU : filtre Année -->
+      <div class="field">
+        <label>Année</label>
+        <select [(ngModel)]="selectedYear" (change)="onYearChange()">
+          <option *ngFor="let y of years" [value]="y">{{ y }}</option>
         </select>
       </div>
 
@@ -124,7 +94,7 @@
         </select>
       </div>
 
-      <!-- ✅ ACTIONS À DROITE : Appliquer + Envoyer au manager -->
+      <!-- ACTIONS -->
       <div class="actions">
         <button class="btn-apply"
                 (click)="apply()"
@@ -132,60 +102,44 @@
           {{ loading ? 'Chargement...' : 'Appliquer' }}
         </button>
 
-        <button class="btn-send"
-                type="button"
-                (click)="toggleMailForm()"
-                [disabled]="sendingMail">
+        <button class="btn-send" type="button" (click)="toggleMailForm()" [disabled]="sendingMail">
           {{ sendingMail ? 'Envoi...' : 'Envoyer au manager' }}
         </button>
       </div>
     </div>
 
-    <!-- ✅ MINI FORM MAIL (apparaît au clic) -->
+    <!-- MINI FORM MAIL -->
     <div class="mail-card" *ngIf="fileImported && showMailForm">
       <div class="mail-grid">
         <div class="mail-field">
           <label>Email manager</label>
           <input type="email" [(ngModel)]="managerEmail" placeholder="manager.logistique@outlook.com">
         </div>
-
         <div class="mail-field">
           <label>Année</label>
           <input type="text" [(ngModel)]="mailYear" placeholder="2026">
         </div>
-
         <div class="mail-field">
           <label>Lien dashboard</label>
           <input type="text" [(ngModel)]="dashboardUrl" placeholder="http://localhost:4200/login">
         </div>
-
         <div class="mail-actions">
-          <button class="btn-apply"
-                  type="button"
-                  (click)="sendMailToManager()"
-                  [disabled]="sendingMail || !managerEmail">
+          <button class="btn-apply" type="button" (click)="sendMailToManager()" [disabled]="sendingMail || !managerEmail">
             {{ sendingMail ? 'Envoi...' : 'Envoyer' }}
           </button>
-
-          <button class="btn-cancel"
-                  type="button"
-                  (click)="toggleMailForm()">
-            Annuler
-          </button>
+          <button class="btn-cancel" type="button" (click)="toggleMailForm()">Annuler</button>
         </div>
       </div>
-
       <div class="hint success" *ngIf="mailSuccess">{{ mailSuccess }}</div>
       <div class="hint error" *ngIf="mailError">{{ mailError }}</div>
     </div>
 
-    <!-- erreurs -->
     <div class="hint" *ngIf="errorMsg">{{ errorMsg }}</div>
   </div>
 
-  <!-- KPI : seulement après import -->
+  <!-- KPI -->
   <div class="kpi-grid" *ngIf="fileImported">
-    <div class="kpi-card" *ngFor="let k of kpis">
+    <div class="kpi-card" *ngFor="let k of kpis" [hidden]="!shouldDisplayKpi(k.kpiCode)">
       <div class="kpi-label">{{ prettyLabel(k.kpiCode) }}</div>
       <div class="kpi-value">{{ formatValue(k.value, k.kpiCode) }}</div>
       <div class="kpi-sub">{{ k.affiliate }} • {{ k.month }} {{ k.year }}</div>
