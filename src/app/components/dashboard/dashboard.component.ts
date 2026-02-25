@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { KpiService, KpiValue } from 'src/app/services/kpi.service';
 import { MailService } from 'src/app/services/mail.service'; // ✅ AJOUT
-
+import { Chart } from 'chart.js/auto';
+import { ChartSeries } from 'src/app/services/kpi.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  // ===== MODAL GRAPH (AJOUT) =====
+showChartModal = false;
+modalTitle = '';
+modalError = '';
+private trendChart?: Chart;
 
   // --- dropdown data ---
   affiliates: string[] = [];
@@ -288,4 +294,117 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
+  // =========================
+// ✅ KPI CLICK -> OPEN MODAL + LOAD SERIES
+// =========================
+openKpiChart(kpiCode: string) {
+  if (!this.fileImported) return;
+  if (!this.selectedAffiliate || !this.selectedYear) return;
+
+  // si user clique alors que c'est ALL (AVG), on affiche la tendance annuelle
+  const categoryParam = (this.selectedCategory === 'ALL') ? undefined : this.selectedCategory;
+
+  this.modalTitle = `${this.prettyLabel(kpiCode)} — Trend ${this.selectedYear}`;
+  this.modalError = '';
+  this.showChartModal = true;
+
+  // charger série Jan..Dec
+  this.kpiService.getMonthlySeries(this.selectedAffiliate, this.selectedYear, kpiCode, categoryParam)
+    .subscribe({
+      next: (s: ChartSeries) => {
+        this.renderTrendChart(s.labels, s.values, this.prettyLabel(kpiCode));
+      },
+      error: (e) => {
+        console.error(e);
+        this.modalError = 'Impossible de charger la courbe pour ce KPI.';
+      }
+    });
+}
+
+closeKpiChart() {
+  this.showChartModal = false;
+  this.modalError = '';
+  this.trendChart?.destroy();
+  this.trendChart = undefined;
+}
+
+private renderTrendChart(labels: string[], values: number[], label: string) {
+  this.trendChart?.destroy();
+
+  const canvas = document.getElementById('kpiTrendChart') as HTMLCanvasElement | null;
+  const ctx = canvas?.getContext('2d');
+  if (!ctx) return;
+
+  // ✅ Détection si le KPI est un taux (rate / compliance)
+  const isPercent =
+    this.isRate(label) ||
+    this.isRate(label.replaceAll(' ', '_'));
+
+  // ✅ Conversion en %
+  const displayValues = isPercent
+    ? values.map(v => (v ?? 0) * 100)
+    : values;
+
+  this.trendChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: isPercent ? `${label} (%)` : label,
+        data: displayValues,
+        tension: 0.35,
+        borderWidth: 4,
+        pointRadius: 3,
+        pointHoverRadius: 6,
+        borderColor: '#FF6B35',
+        backgroundColor: 'rgba(255,107,53,0.20)',
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          labels: {
+            color: '#fff',
+            font: { weight: 700 } // ✅ nombre et non string
+          }
+        },
+       tooltip: {
+  callbacks: {
+    label: (ctx) => {
+      const raw = ctx.parsed?.y;
+
+      // ✅ si null/undefined -> rien (ou "--")
+      if (raw === null || raw === undefined) {
+        return `${ctx.dataset.label} : --`;
+      }
+
+      return isPercent
+        ? `${ctx.dataset.label} : ${raw.toFixed(1)}%`
+        : `${ctx.dataset.label} : ${new Intl.NumberFormat('fr-FR').format(raw)}`;
+    }
+  }
+}
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: '#fff',
+            font: { weight: 700 }
+          },
+          grid: { color: 'rgba(255,255,255,0.10)' }
+        },
+        y: {
+          ticks: {
+            color: '#fff',
+            font: { weight: 700 },
+            callback: (val) => isPercent ? `${val}%` : `${val}`
+          },
+          grid: { color: 'rgba(255,255,255,0.10)' }
+        }
+      }
+    }
+  });
+}
 }

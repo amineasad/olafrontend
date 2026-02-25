@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://php-rider-soon-mandatory.trycloudflare.com'
+  apiUrl: 'https://graduate-houston-cast-yrs.trycloudflare.com'
 };

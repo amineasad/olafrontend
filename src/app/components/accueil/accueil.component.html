@@ -1,179 +1,263 @@
-<div class="ola-page">
+<div class="ola-layout">
 
-  <!-- NAVBAR (RECTANGULAIRE FULL WIDTH - INCHANGÉE) -->
-  <nav class="ola-nav">
-    <div class="nav-inner">
-
-      <!-- LEFT -->
-      <div class="nav-left">
-        <img class="nav-logo" src="assets/images/ola.jpg" alt="OLA">
-        <div class="nav-brand">
-          <div class="nav-title">Dashboard Logistique</div>
-          <div class="nav-sub">Rapports • KPI • Prévisions</div>
-        </div>
-      </div>
-
-      <!-- CENTER -->
-      <div class="nav-center">
-        <a class="nav-link"
-           routerLink="/accueil"
-           routerLinkActive="active"
-           [routerLinkActiveOptions]="{ exact: true }">
-          Accueil
-        </a>
-
-        <a class="nav-link"
-           routerLink="/dashboard"
-           routerLinkActive="active">
-          KPI
-        </a>
-
-        <a class="nav-link"
-           routerLink="/anomalies"
-           routerLinkActive="active">
-          Anomalies
-        </a>
-
-        <a class="nav-link"
-           routerLink="/powerbi"
-           routerLinkActive="active">
-          Power BI
-        </a>
-      </div>
-
-      <!-- RIGHT -->
-      <div class="nav-right">
-        <div class="profile">
-          <button class="profile-btn">
-            <span class="avatar">M</span>
-            <span class="profile-text">
-              <span class="name">Manager Logistique</span>
-              <span class="role">MANAGER</span>
-            </span>
-            <span class="chev">▾</span>
-          </button>
-
-          <div class="profile-menu">
-            <a class="menu-item" routerLink="/profile">Profil</a>
-            <button class="menu-item danger">Déconnexion</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </nav>
-
-  <!-- CONTENT ULTRA-COMPACT (UNE SEULE PAGE) -->
-  <div class="home-container">
-    
-    <!-- HERO + SIDEBAR GRID -->
-    <div class="home-grid">
-      
-      <!-- LEFT: HERO COMPACT -->
-      <div class="hero-zone">
-        <div class="hero-badge-mini">
-          <i class="fas fa-fire"></i>
-          <span>Plateforme Intelligente</span>
-        </div>
-        <h1 class="hero-title-mini">
-          Optimisez votre logistique avec 
-          <span class="gradient-text">l'IA</span>
-        </h1>
-        <p class="hero-desc-mini">
-          Importez vos rapports Excel, analysez vos KPI en temps réel et 
-          détectez automatiquement les anomalies avec une précision de 87%.
-        </p>
-        <div class="hero-btns">
-          <a routerLink="/dashboard" class="btn-primary-mini">
-            <i class="fas fa-chart-line"></i>
-            Voir mes KPIs
-          </a>
-          <a routerLink="/powerbi" class="btn-secondary-mini">
-            <i class="fas fa-chart-bar"></i>
-            Power BI
-          </a>
-        </div>
-      </div>
-
-      <!-- RIGHT: STATS + FEATURES COMPACT -->
-      <div class="sidebar-zone">
-        
-        <!-- Quick Stats -->
-        <div class="stats-mini-grid">
-          <div class="stat-mini-card">
-            <div class="stat-mini-icon">📊</div>
-            <div class="stat-mini-value">15.2M</div>
-            <div class="stat-mini-label">Ventes</div>
-          </div>
-          <div class="stat-mini-card">
-            <div class="stat-mini-icon">🎯</div>
-            <div class="stat-mini-value">87%</div>
-            <div class="stat-mini-label">Précision</div>
-          </div>
-          <div class="stat-mini-card">
-            <div class="stat-mini-icon">⚡</div>
-            <div class="stat-mini-value">24/7</div>
-            <div class="stat-mini-label">Analyse</div>
-          </div>
-        </div>
-
-        <!-- Features Mini -->
-        <div class="features-mini-grid">
-          <a routerLink="/dashboard" class="feature-mini-card">
-            <div class="feature-mini-icon">📈</div>
-            <div>
-              <h3>KPI Temps Réel</h3>
-              <p>Ventes, coûts, livraisons</p>
-            </div>
-          </a>
-
-          <a routerLink="/anomalies" class="feature-mini-card">
-            <div class="feature-mini-icon">⚠️</div>
-            <div>
-              <h3>Détection IA</h3>
-              <p>Alertes automatiques</p>
-            </div>
-          </a>
-
-          <a routerLink="/powerbi" class="feature-mini-card">
-            <div class="feature-mini-icon">📊</div>
-            <div>
-              <h3>Power BI</h3>
-              <p>Analyses approfondies</p>
-            </div>
-          </a>
-
-          <a routerLink="/previsions" class="feature-mini-card">
-            <div class="feature-mini-icon">🔮</div>
-            <div>
-              <h3>Prévisions</h3>
-              <p>Tendances futures</p>
-            </div>
-          </a>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- WORKFLOW BOTTOM BAR -->
-    <div class="workflow-bar">
-      <div class="workflow-mini-step">
-        <span class="workflow-num">1</span>
-        <span class="workflow-text">Importer Excel</span>
-      </div>
-      <div class="workflow-arrow-mini">→</div>
-      <div class="workflow-mini-step">
-        <span class="workflow-num">2</span>
-        <span class="workflow-text">Analyser IA</span>
-      </div>
-      <div class="workflow-arrow-mini">→</div>
-      <div class="workflow-mini-step">
-        <span class="workflow-num">3</span>
-        <span class="workflow-text">Décider</span>
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="ola-sidebar">
+    <div class="sidebar-brand">
+      <img class="nav-logo" src="assets/images/ola.jpg" alt="OLA">
+      <div class="nav-brand">
+        <div class="nav-title">Dashboard</div>
+        <div class="nav-sub">Logistique</div>
       </div>
     </div>
 
+    <nav class="sidebar-nav">
+      <a class="sidebar-link" routerLink="/accueil" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <span class="sidebar-icon">🏠</span>
+        <span class="sidebar-text">Accueil</span>
+      </a>
+      <a class="sidebar-link" routerLink="/dashboard" routerLinkActive="active">
+        <span class="sidebar-icon">📊</span>
+        <span class="sidebar-text">KPI</span>
+      </a>
+      <a class="sidebar-link" routerLink="/anomalies" routerLinkActive="active">
+        <span class="sidebar-icon">⚠️</span>
+        <span class="sidebar-text">Anomalies</span>
+      </a>
+      <a class="sidebar-link" routerLink="/graphes" routerLinkActive="active">
+        <span class="sidebar-icon">📈</span>
+        <span class="sidebar-text">Graphes</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-spacer"></div>
+
+    <div class="sidebar-profile">
+      <div class="profile">
+        <button class="profile-btn">
+          <span class="avatar">M</span>
+          <span class="profile-text">
+            <span class="name">Manager Logistique</span>
+            <span class="role">MANAGER</span>
+          </span>
+          <span class="chev">▾</span>
+        </button>
+        <div class="profile-menu">
+          <a class="menu-item" routerLink="/profile">Profil</a>
+          <button class="menu-item danger">Déconnexion</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== RIGHT ===================== -->
+  <div class="ola-right">
+
+    <!-- TOPBAR -->
+    <header class="ola-topbar">
+      <div class="topbar-left">
+        <span class="topbar-page-label">Accueil</span>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-search">
+          <svg class="search-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input type="text" placeholder="Search" />
+        </div>
+        <button class="tb-btn" title="Vue grille">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
+          </svg>
+        </button>
+        <button class="tb-btn notif" title="Notifications">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6V11c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+          </svg>
+          <span class="badge">5</span>
+        </button>
+        <button class="tb-btn" title="Profil">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- PAGE PRINCIPALE -->
+    <div class="ola-page">
+
+      <!-- HERO SECTION -->
+      <section class="hero-section">
+
+        <!-- Particules décoratives -->
+        <div class="particles">
+          <div class="p p1"></div><div class="p p2"></div><div class="p p3"></div>
+          <div class="p p4"></div><div class="p p5"></div><div class="p p6"></div>
+        </div>
+
+        <!-- Contenu hero centré -->
+        <div class="hero-content">
+
+          <!-- Badge animé -->
+          <div class="welcome-badge">
+            <span class="badge-dot"></span>
+            <span>Système Actif • OLA Energy</span>
+          </div>
+
+          <!-- Titre principal -->
+          <div class="hero-title-block">
+            <p class="pre-title">Bienvenue sur votre</p>
+            <h1 class="main-title">
+              <span class="title-line-1">Dashboard</span>
+              <span class="title-line-2">
+                <span class="title-ola">OLA</span>
+                <span class="title-logistique"> Logistique</span>
+              </span>
+            </h1>
+            <div class="title-underline">
+              <div class="underline-bar"></div>
+              <div class="underline-dot"></div>
+            </div>
+          </div>
+
+          <!-- Tagline -->
+          <p class="hero-tagline">
+            Pilotez votre performance, anticipez les risques,<br>
+            décidez avec précision — tout en un seul endroit.
+          </p>
+
+          <!-- Stats en ligne -->
+          <div class="hero-stats">
+            <div class="hstat">
+              <span class="hstat-val">15.2M</span>
+              <span class="hstat-lbl">Ventes analysées</span>
+            </div>
+            <div class="hstat-sep"></div>
+            <div class="hstat">
+              <span class="hstat-val">87%</span>
+              <span class="hstat-lbl">Précision IA</span>
+            </div>
+            <div class="hstat-sep"></div>
+            <div class="hstat">
+              <span class="hstat-val">24/7</span>
+              <span class="hstat-lbl">Surveillance</span>
+            </div>
+            <div class="hstat-sep"></div>
+            <div class="hstat">
+              <span class="hstat-val">4</span>
+              <span class="hstat-lbl">Modules actifs</span>
+            </div>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="hero-ctas">
+            <a routerLink="/dashboard" class="cta-primary">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+              Accéder aux KPIs
+            </a>
+            <a routerLink="/anomalies" class="cta-secondary">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+              Voir les Anomalies
+            </a>
+            <a routerLink="/powerbi" class="cta-ghost">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 9.2h3V19H5V9.2zM10.6 5h2.8v14h-2.8V5zM16.2 13h2.8v6h-2.8v-6z"/></svg>
+              Power BI
+            </a>
+          </div>
+
+        </div>
+
+        <!-- CARDS FLOTTANTES DROITE -->
+        <div class="hero-cards">
+
+          <!-- Card principale -->
+          <div class="float-card card-main">
+            <div class="fc-header">
+              <div class="fc-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+              </div>
+              <div>
+                <div class="fc-title">Tableau de bord KPI</div>
+                <div class="fc-sub">Mis à jour en temps réel</div>
+              </div>
+              <div class="fc-status">
+                <span class="status-dot"></span> Live
+              </div>
+            </div>
+            <div class="fc-chart">
+              <div class="bar-wrap">
+                <div class="bar" style="height: 45%"></div>
+                <div class="bar" style="height: 72%"></div>
+                <div class="bar" style="height: 58%"></div>
+                <div class="bar" style="height: 88%"></div>
+                <div class="bar" style="height: 65%"></div>
+                <div class="bar active" style="height: 95%"></div>
+                <div class="bar" style="height: 78%"></div>
+              </div>
+            </div>
+            <div class="fc-footer">
+              <span class="fc-trend up">▲ +12.4% ce mois</span>
+              <span class="fc-kpi-val">15.2M FCFA</span>
+            </div>
+          </div>
+
+          <!-- 2 mini cards -->
+          <div class="float-cards-row">
+            <div class="float-card card-mini">
+              <div class="mini-icon anomaly">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+              </div>
+              <div class="mini-val">3</div>
+              <div class="mini-lbl">Anomalies détectées</div>
+              <div class="mini-badge warn">À traiter</div>
+            </div>
+
+            <div class="float-card card-mini">
+              <div class="mini-icon success">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+              </div>
+              <div class="mini-val">98%</div>
+              <div class="mini-lbl">Taux de livraison</div>
+              <div class="mini-badge ok">Excellent</div>
+            </div>
+          </div>
+
+          <!-- Card workflow -->
+          <div class="float-card card-workflow">
+            <div class="wf-title">Flux de travail</div>
+            <div class="wf-steps">
+              <div class="wf-step done">
+                <div class="wf-num">1</div>
+                <div class="wf-info">
+                  <span class="wf-name">Import Excel</span>
+                  <span class="wf-stat">Complété</span>
+                </div>
+                <svg class="wf-check" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              </div>
+              <div class="wf-connector"></div>
+              <div class="wf-step active">
+                <div class="wf-num pulse">2</div>
+                <div class="wf-info">
+                  <span class="wf-name">Analyse IA</span>
+                  <span class="wf-stat">En cours…</span>
+                </div>
+                <div class="wf-loader"></div>
+              </div>
+              <div class="wf-connector"></div>
+              <div class="wf-step pending">
+                <div class="wf-num dim">3</div>
+                <div class="wf-info">
+                  <span class="wf-name">Décision</span>
+                  <span class="wf-stat">En attente</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
   </div>
-
 </div>

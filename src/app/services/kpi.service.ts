@@ -11,6 +11,10 @@ export interface KpiValue {
   year: number;
   value: number;
 }
+export interface ChartSeries {
+  labels: string[];
+  values: number[];
+}
 
 @Injectable({ providedIn: 'root' })
 export class KpiService {
@@ -66,7 +70,18 @@ importKpis(file: File) {
 
   return this.http.post(`${this.baseUrl}/kpis/import`, formData, { responseType: 'text' });
 }
+getMonthlySeries(affiliate: string, year: number, kpiCode: string, category?: string) {
+  let params = new HttpParams()
+    .set('affiliate', affiliate)
+    .set('year', year.toString())
+    .set('kpiCode', kpiCode);
 
+  if (category && category !== 'ALL') {
+    params = params.set('category', category);
+  }
+
+  return this.http.get<ChartSeries>(`${this.baseUrl}/kpis/series`, { params });
+}
 
   
 }

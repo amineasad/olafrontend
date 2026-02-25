@@ -1,0 +1,507 @@
+/* graphes.component.scss */
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+.ola-layout { display: flex; min-height: 100vh; }
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+.ola-sidebar{
+  position: fixed; top: 0; left: 0;
+  width: 240px; height: 100vh; z-index: 1000;
+  display: flex; flex-direction: column;
+  background: rgba(0,48,135,0.72);
+  backdrop-filter: blur(18px);
+  border-right: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 4px 0 24px rgba(0,0,0,0.35);
+  padding: 24px 0; box-sizing: border-box;
+}
+
+.sidebar-brand{
+  display: flex; align-items: center; gap: 12px;
+  padding: 0 20px 28px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  margin-bottom: 8px;
+}
+
+.nav-logo{
+  width: 44px; height: 44px; padding: 5px;
+  background: #fff; border-radius: 12px; object-fit: contain;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2); flex-shrink: 0;
+}
+
+.nav-title{ color:#fff; font-weight:900; font-size:15px; line-height:1.2; }
+.nav-sub{ color: rgba(255,255,255,0.75); font-size: 11px; }
+
+.sidebar-nav{ display:flex; flex-direction:column; gap:4px; padding: 8px 12px; }
+
+.sidebar-link{
+  display:flex; align-items:center; gap:14px;
+  padding: 13px 16px; border-radius: 14px;
+  text-decoration:none; font-weight:700; font-size:14px;
+  color: rgba(255,255,255,0.85);
+  transition: all 0.25s ease; white-space: nowrap;
+
+  &:hover{
+    background: rgba(255,255,255,0.14);
+    color:#fff; transform: translateX(4px);
+  }
+
+  &.active{
+    background: rgba(255,107,53,0.30);
+    color:#fff;
+    border-left: 3px solid #FF6B35;
+    padding-left: 13px;
+    box-shadow: 0 4px 16px rgba(255,107,53,0.25);
+  }
+}
+
+.sidebar-icon{ font-size: 18px; width: 22px; text-align:center; flex-shrink: 0; }
+.sidebar-text{ flex: 1; }
+.sidebar-spacer{ flex: 1; }
+
+/* Profile */
+.sidebar-profile{
+  padding: 16px 12px 8px 12px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.profile{ position: relative; }
+
+.profile-btn{
+  display:flex; align-items:center; gap:10px; width:100%;
+  padding:10px 12px; border-radius: 12px;
+  background: rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.20);
+  color:#fff; font-weight:800; cursor:pointer; text-align:left;
+  transition: all 0.25s ease; box-sizing:border-box;
+
+  &:hover{ background: rgba(255,255,255,0.22); }
+}
+
+.avatar{
+  width: 36px; height:36px; border-radius: 10px;
+  background: rgba(255,255,255,0.25);
+  display:flex; align-items:center; justify-content:center;
+  font-weight: 900; flex-shrink:0;
+}
+
+.profile-text{
+  display:flex; flex-direction:column; line-height:1.2; flex:1; min-width:0;
+  .name{ font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .role{ font-size:10px; opacity:0.8; }
+}
+
+.chev{ font-size:12px; opacity:0.8; flex-shrink:0; }
+
+.profile-menu{
+  position:absolute; bottom: 58px; left:0; right:0;
+  padding: 8px;
+  background: rgba(0,48,135,0.90);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.20);
+  border-radius: 14px;
+  display:none;
+  box-shadow: 0 -8px 24px rgba(0,0,0,0.4);
+}
+
+.profile:hover .profile-menu{ display:block; }
+
+.menu-item{
+  width:100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border:none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 700;
+  color:#fff;
+  text-align:left;
+  cursor:pointer;
+  text-decoration:none;
+  display:block;
+  transition: background 0.2s;
+  box-sizing:border-box;
+
+  &:hover{ background: rgba(255,255,255,0.16); }
+
+  &.danger{
+    background: rgba(255,80,80,0.15);
+    margin-top:4px;
+    &:hover{ background: rgba(255,80,80,0.28); }
+  }
+}
+
+/* =========================================================
+   RIGHT WRAPPER
+========================================================= */
+.ola-right{
+  margin-left: 240px;
+  flex: 1;
+  display:flex;
+  flex-direction:column;
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(0,48,135,.65), rgba(0,48,135,.65)),
+    url('/assets/images/ola-station.jpg') center/cover no-repeat fixed;
+}
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+.ola-topbar{
+  position: sticky; top: 0; z-index: 900;
+  height: 62px;
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 0 32px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom: 1px solid rgba(255,255,255,0.20);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.08), 0 4px 20px rgba(0,0,0,0.18);
+  box-sizing:border-box;
+}
+
+.topbar-page-label{
+  color:#fff;
+  font-size: 19px;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.45);
+}
+
+.topbar-right{ display:flex; align-items:center; gap:10px; }
+
+.topbar-search{
+  position: relative;
+  display:flex;
+  align-items:center;
+
+  .search-svg{
+    position:absolute;
+    left: 11px;
+    width: 15px; height:15px;
+    color: rgba(255,255,255,0.65);
+    pointer-events:none;
+  }
+
+  input{
+    padding: 9px 16px 9px 34px;
+    border-radius: 22px;
+    border: 1.5px solid rgba(255,255,255,0.28);
+    background: rgba(255,255,255,0.13);
+    color:#fff;
+    font-size: 13px;
+    font-weight: 600;
+    width: 190px;
+    outline: none;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+
+    &::placeholder{ color: rgba(255,255,255,0.60); }
+
+    &:focus{
+      width: 230px;
+      background: rgba(255,255,255,0.20);
+      border-color: rgba(255,107,53,0.70);
+      box-shadow: 0 0 0 3px rgba(255,107,53,0.18);
+    }
+  }
+}
+
+.tb-btn{
+  position: relative;
+  width: 38px; height: 38px;
+  border-radius: 11px;
+  border: 1.5px solid rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.10);
+  color: rgba(255,255,255,0.90);
+  cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition: all 0.22s ease;
+  backdrop-filter: blur(8px);
+
+  svg{ width:17px; height:17px; }
+
+  &:hover{
+    background: rgba(255,255,255,0.20);
+    border-color: rgba(255,255,255,0.40);
+    color:#fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  }
+}
+
+/* =========================================================
+   PAGE
+========================================================= */
+.ola-page{
+  flex: 1;
+  padding: 24px 32px;
+  box-sizing:border-box;
+  min-height: calc(100vh - 62px);
+}
+
+/* =========================================================
+   FILTERS
+   — grille 5 colonnes pour inclure le sélecteur de type
+========================================================= */
+.filters-card{
+  background: rgba(255,255,255,.20);
+  border: 2px solid rgba(255,255,255,.35);
+  border-radius: 18px;
+  padding: 20px;
+  backdrop-filter: blur(15px);
+  margin-bottom: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+.filters-grid{
+  display: grid;
+  /* 4 champs + 1 colonne actions */
+  grid-template-columns: 1fr 1fr 1fr 1fr auto;
+  gap: 16px;
+  align-items: end;
+
+  .field{
+    label{
+      display:block;
+      color:#fff;
+      font-size:13px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+      letter-spacing: 0.3px;
+    }
+
+    select{
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 2px solid rgba(255,255,255,0.2);
+      outline: none;
+      font-weight: 600;
+      font-size: 14px;
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+
+      &:focus{
+        border-color: #FF6B35;
+        box-shadow: 0 0 0 3px rgba(255,107,53,0.2);
+      }
+    }
+  }
+}
+
+.actions{
+  display:flex;
+  gap: 12px;
+  justify-content: flex-end;
+  align-items: end;
+}
+
+.btn-apply{
+  padding: 13px 24px;
+  border:none;
+  border-radius: 14px;
+  cursor:pointer;
+  background: linear-gradient(135deg, #FF6B35, #F7931E);
+  color:#fff;
+  font-weight: 800;
+  font-size: 14px;
+  box-shadow: 0 6px 20px rgba(255,107,53,0.4);
+  transition: all 0.3s ease;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+
+  &:hover:not(:disabled){
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255,107,53,0.6);
+  }
+
+  &:disabled{
+    opacity: .6;
+    cursor: not-allowed;
+    background: rgba(255,255,255,.3);
+  }
+}
+
+.btn-send{
+  padding: 13px 22px;
+  border: 2px solid rgba(255,255,255,.35);
+  border-radius: 14px;
+  cursor:pointer;
+  background: rgba(255,255,255,.18);
+  color:#fff;
+  font-weight: 800;
+  font-size: 14px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 6px 20px rgba(0,0,0,.3);
+  transition: all .3s ease;
+  text-shadow: 0 2px 6px rgba(0,0,0,.35);
+
+  &:hover{
+    background: rgba(255,255,255,.28);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(0,0,0,.4);
+  }
+}
+
+.hint{
+  margin-top: 12px;
+  color:#fff;
+  font-size: 13px;
+  font-weight: 600;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+.hint.error{
+  margin-top: 10px;
+  border-left: 3px solid #ef4444;
+  padding-left: 10px;
+}
+
+/* Import */
+.import-row{ display:flex; align-items:center; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
+
+.btn-file, .btn-import{
+  padding: 12px 20px;
+  border-radius: 14px;
+  border: 2px solid rgba(255,255,255,.35);
+  background: rgba(255,255,255,.20);
+  color:#fff;
+  font-weight: 800;
+  font-size: 14px;
+  cursor:pointer;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+
+  &:hover:not(:disabled){
+    background: rgba(255,255,255,.28);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.4);
+  }
+}
+
+.btn-import:disabled{ opacity: .5; cursor: not-allowed; }
+
+.file-name{
+  color:#fff;
+  font-size: 14px;
+  font-weight: 700;
+  max-width: 260px;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.2);
+  padding: 8px 16px;
+  border-radius: 12px;
+  border-left: 3px solid #FF6B35;
+}
+
+.import-msg{
+  width: 100%;
+  margin-top: 8px;
+  color:#fff;
+  font-size: 13px;
+  font-weight: 700;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.2);
+  padding: 10px 16px;
+  border-radius: 12px;
+  border-left: 3px solid #4ade80;
+}
+
+/* =========================================================
+   GRAPHES
+========================================================= */
+.graphs-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 18px;
+}
+
+.graph-card{
+  background: rgba(255,255,255,.20);
+  border: 2px solid rgba(255,255,255,.35);
+  border-radius: 18px;
+  padding: 16px;
+  backdrop-filter: blur(15px);
+  color: #fff;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+
+  &:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.5);
+    border-color: rgba(255,107,53,0.5);
+  }
+
+  canvas{
+    display: block;
+    width: 100% !important;
+    max-height: 280px;
+    flex: 1;
+  }
+}
+
+.graph-title{
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.4px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+
+/* Empty */
+.empty{
+  color: #fff;
+  font-weight: 600;
+  padding: 20px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+  background: rgba(255,255,255,.15);
+  border: 2px solid rgba(255,255,255,.3);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+@media (max-width: 1300px){
+  .filters-grid{ grid-template-columns: 1fr 1fr 1fr; }
+  .actions{ grid-column: 1 / -1; justify-content: flex-start; }
+}
+
+@media (max-width: 1100px){
+  .filters-grid{ grid-template-columns: 1fr 1fr; }
+  .actions{ grid-column: 1 / -1; justify-content: flex-start; }
+}
+
+@media (max-width: 768px){
+  .ola-sidebar{ width: 68px; padding: 16px 0; }
+  .sidebar-brand .nav-brand, .sidebar-text, .profile-text, .chev{ display: none; }
+  .sidebar-brand{ justify-content: center; padding: 0 0 20px 0; }
+  .sidebar-link{ justify-content: center; padding: 14px; }
+  .sidebar-icon{ font-size: 20px; width: auto; }
+  .sidebar-profile{ padding: 12px 8px; }
+  .profile-btn{ justify-content: center; padding: 10px; }
+  .ola-right{ margin-left: 68px; }
+  .ola-page{ padding: 16px; }
+  .topbar-search input{ width: 110px; }
+  .filters-grid{ grid-template-columns: 1fr; }
+  .graphs-grid{ grid-template-columns: 1fr; }
+}
+
+@media (max-width: 700px){
+  .graphs-grid{ grid-template-columns: 1fr; }
+  .graph-card{ min-height: 320px; }
+}

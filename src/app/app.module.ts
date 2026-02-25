@@ -11,6 +11,7 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LandingpageComponent } from './components/landingpage/landingpage.component';
 import { AccueilComponent } from './components/accueil/accueil.component';
+import { GraphesComponent } from './components/graphes/graphes.component';
 
 
 
@@ -23,6 +24,7 @@ import { AccueilComponent } from './components/accueil/accueil.component';
     DashboardComponent,
     LandingpageComponent,
     AccueilComponent,
+    GraphesComponent,
     
     
   ],
