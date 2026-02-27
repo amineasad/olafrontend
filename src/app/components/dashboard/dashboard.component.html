@@ -2,7 +2,6 @@
 
   <!-- ===================== SIDEBAR ===================== -->
   <aside class="ola-sidebar">
-
     <div class="sidebar-brand">
       <img class="nav-logo" src="assets/images/ola.jpg" alt="OLA">
       <div class="nav-brand">
@@ -10,31 +9,21 @@
         <div class="nav-sub">Logistique</div>
       </div>
     </div>
-
     <nav class="sidebar-nav">
-      <a class="sidebar-link"
-         routerLink="/accueil"
-         routerLinkActive="active"
-         [routerLinkActiveOptions]="{ exact: true }">
-        <span class="sidebar-icon">🏠</span>
-        <span class="sidebar-text">Accueil</span>
+      <a class="sidebar-link" routerLink="/accueil" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <span class="sidebar-icon">🏠</span><span class="sidebar-text">Accueil</span>
       </a>
       <a class="sidebar-link" routerLink="/dashboard" routerLinkActive="active">
-        <span class="sidebar-icon">📊</span>
-        <span class="sidebar-text">KPI</span>
+        <span class="sidebar-icon">📊</span><span class="sidebar-text">KPI</span>
       </a>
       <a class="sidebar-link" routerLink="/anomalies" routerLinkActive="active">
-        <span class="sidebar-icon">⚠️</span>
-        <span class="sidebar-text">Anomalies</span>
+        <span class="sidebar-icon">⚠️</span><span class="sidebar-text">Anomalies</span>
       </a>
       <a class="sidebar-link" routerLink="/graphes" routerLinkActive="active">
-        <span class="sidebar-icon">📈</span>
-        <span class="sidebar-text">Graphes</span>
+        <span class="sidebar-icon">📈</span><span class="sidebar-text">Graphes</span>
       </a>
     </nav>
-
     <div class="sidebar-spacer"></div>
-
     <div class="sidebar-profile">
       <div class="profile">
         <button class="profile-btn" type="button">
@@ -52,7 +41,6 @@
         </div>
       </div>
     </div>
-
   </aside>
 
   <!-- ===================== RIGHT ===================== -->
@@ -61,8 +49,18 @@
     <!-- TOPBAR -->
     <header class="ola-topbar">
       <div class="topbar-left">
-        <span class="topbar-page-label">KPI Dashboard</span>
-      </div>
+    <div class="page-title-group">
+      <span class="topbar-page-label">KPI Dashboard</span>
+
+      <button class="tb-resume-btn"
+              type="button"
+              (click)="scrollToSummary()">
+        📄 Résumé IA
+      </button>
+    </div>
+  </div>
+     
+      
       <div class="topbar-right">
         <div class="topbar-search">
           <svg class="search-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
@@ -93,7 +91,7 @@
     <!-- PAGE -->
     <div class="ola-page">
 
-      <!-- Filtres -->
+      <!-- FILTRES -->
       <div class="filters-card">
         <div class="import-row">
           <input #fileInput type="file" accept=".xlsx,.xls" (change)="onFileSelected($event)" hidden />
@@ -176,34 +174,67 @@
         <div class="hint" *ngIf="errorMsg">{{ errorMsg }}</div>
       </div>
 
-      <!-- KPI -->
+      <!-- ===================== KPI CARDS ===================== -->
       <div class="kpi-grid" *ngIf="fileImported">
         <div class="kpi-card"
-     *ngFor="let k of kpis"
-     [hidden]="!shouldDisplayKpi(k.kpiCode)"
-     (click)="openKpiChart(k.kpiCode)">
-  <div class="kpi-label">{{ prettyLabel(k.kpiCode) }}</div>
-  <div class="kpi-value">{{ formatValue(k.value, k.kpiCode) }}</div>
-  <div class="kpi-sub">{{ k.affiliate }} • {{ k.month }} {{ k.year }}</div>
-</div>
+             *ngFor="let k of kpis"
+             [hidden]="!shouldDisplayKpi(k.kpiCode)"
+             (click)="openKpiChart(k.kpiCode)">
+          <div class="kpi-label">{{ prettyLabel(k.kpiCode) }}</div>
+          <div class="kpi-value">{{ formatValue(k.value, k.kpiCode) }}</div>
+          <div class="kpi-sub">{{ k.affiliate }} • {{ k.month }} {{ k.year }}</div>
+        </div>
         <div class="empty" *ngIf="!loading && kpis.length === 0 && !errorMsg">
           Sélectionne les filtres puis clique sur <b>Appliquer</b>.
         </div>
       </div>
-<!-- ===================== KPI TREND MODAL ===================== -->
-<div class="modal-backdrop" *ngIf="showChartModal" (click)="closeKpiChart()"></div>
 
-<div class="modal" *ngIf="showChartModal">
-  <div class="modal-header">
-    <div class="modal-title">{{ modalTitle }}</div>
-    <button class="modal-close" (click)="closeKpiChart()">✕</button>
-  </div>
+      <!-- ===================== RÉSUMÉ IA ===================== -->
+      <div id="aiSummarySection" class="ai-summary-card" *ngIf="fileImported && (aiSummary || aiLoading || aiError)">
 
-  <div class="modal-body">
-    <canvas id="kpiTrendChart"></canvas>
-    <div class="hint error" *ngIf="modalError">{{ modalError }}</div>
-  </div>
-</div>
+        <div class="ai-header">
+          <div class="ai-badge-row">
+            <span class="ai-icon">🤖</span>
+            <span class="ai-title">Analyse IA</span>
+            <span class="ai-chip model">Groq · LLaMA 3.3</span>
+            <span class="ai-chip mode" *ngIf="!aiLoading && aiSummary">
+              {{ selectedMonth === 'ALL' ? '📅 Résumé annuel' : '📆 Résumé ' + selectedMonth }}
+            </span>
+          </div>
+          <div class="ai-meta-row" *ngIf="aiSummary && !aiLoading">
+            <span class="ai-meta-text">
+              {{ selectedAffiliate }} · {{ selectedYear }}
+              {{ selectedCategory !== 'ALL' ? ' · ' + selectedCategory : '' }}
+            </span>
+            <button class="ai-refresh" (click)="loadAiSummary()" title="Régénérer">🔄</button>
+          </div>
+        </div>
+
+        <div class="ai-loading" *ngIf="aiLoading">
+          <div class="ai-dots"><span></span><span></span><span></span></div>
+          <p>Analyse en cours...</p>
+        </div>
+
+        <div class="ai-err" *ngIf="aiError && !aiLoading">⚠️ {{ aiError }}</div>
+
+        <div class="ai-body" *ngIf="aiSummary && !aiLoading" [innerHTML]="aiSummaryHtml"></div>
+
+      </div>
+      <!-- ===================== FIN RÉSUMÉ IA ===================== -->
+
+      <!-- ===================== KPI MODAL ===================== -->
+      <div class="modal-backdrop" *ngIf="showChartModal" (click)="closeKpiChart()"></div>
+      <div class="modal" *ngIf="showChartModal">
+        <div class="modal-header">
+          <div class="modal-title">{{ modalTitle }}</div>
+          <button class="modal-close" (click)="closeKpiChart()">✕</button>
+        </div>
+        <div class="modal-body">
+          <canvas id="kpiTrendChart"></canvas>
+          <div class="hint error" *ngIf="modalError">{{ modalError }}</div>
+        </div>
+      </div>
+
     </div>
   </div>
 

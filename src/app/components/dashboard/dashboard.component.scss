@@ -162,7 +162,6 @@
     outline: none; backdrop-filter: blur(10px); transition: all 0.3s ease;
 
     &::placeholder { color: rgba(255,255,255,0.60); }
-
     &:focus {
       width: 230px; background: rgba(255,255,255,0.20);
       border-color: rgba(255,107,53,0.70);
@@ -261,6 +260,7 @@
   background: rgba(255,255,255,.20); border: 2px solid rgba(255,255,255,.35);
   border-radius: 18px; padding: 22px; backdrop-filter: blur(15px);
   color: #fff; box-shadow: 0 8px 25px rgba(0,0,0,0.4); transition: all 0.3s ease;
+  cursor: pointer;
   &:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(0,0,0,0.5); border-color: rgba(255,107,53,0.5); }
   .kpi-label { font-size: 13px; font-weight: 800; margin-bottom: 12px; text-shadow: 0 2px 10px rgba(0,0,0,0.6); letter-spacing: 0.5px; text-transform: uppercase; }
   .kpi-value { font-size: 28px; font-weight: 900; text-shadow: 0 3px 15px rgba(0,0,0,0.7); color: #FFD700; filter: drop-shadow(0 2px 8px rgba(255,215,0,0.5)); }
@@ -337,6 +337,159 @@
 }
 
 /* =========================================================
+   KPI MODAL CHART
+========================================================= */
+.modal-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.55); z-index: 2000;
+}
+
+.modal {
+  position: fixed;
+  top: 50%; left: calc(50% + 120px);
+  transform: translate(-50%, -50%);
+  width: min(860px, 92vw);
+  background: rgba(255,255,255,0.16);
+  border: 2px solid rgba(255,255,255,0.28);
+  border-radius: 18px; backdrop-filter: blur(16px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+  z-index: 2100; overflow: hidden;
+}
+
+.modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.18);
+}
+
+.modal-title {
+  color: #fff; font-weight: 900; font-size: 14px;
+  letter-spacing: 0.3px; text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+
+.modal-close {
+  border: none; background: rgba(255,255,255,0.14); color: #fff;
+  width: 38px; height: 38px; border-radius: 12px; cursor: pointer;
+  font-weight: 900; transition: all .2s ease;
+  &:hover { background: rgba(255,255,255,0.22); transform: translateY(-1px); }
+}
+
+.modal-body {
+  padding: 14px 16px 18px 16px;
+  canvas { width: 100% !important; max-height: 360px; display: block; }
+}
+
+/* =========================================================
+   RÉSUMÉ IA
+========================================================= */
+.ai-summary-card {
+  margin-top: 28px;
+  background: linear-gradient(135deg,
+    rgba(255,107,53,0.10) 0%,
+    rgba(0,48,135,0.30) 60%,
+    rgba(247,147,30,0.08) 100%
+  );
+  border: 2px solid rgba(255,107,53,0.35);
+  border-radius: 20px;
+  padding: 22px 26px;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.38);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 160px; height: 2px;
+    background: linear-gradient(90deg, #FF6B35, transparent);
+  }
+}
+
+.ai-header {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 10px; margin-bottom: 18px;
+}
+
+.ai-badge-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.ai-icon { font-size: 20px; }
+
+.ai-title {
+  color: #fff; font-size: 15px; font-weight: 900;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.ai-chip {
+  font-size: 11px; font-weight: 800; padding: 3px 10px;
+  border-radius: 20px; letter-spacing: 0.4px; text-transform: uppercase;
+  &.model { background: rgba(255,107,53,0.20); border: 1px solid rgba(255,107,53,0.45); color: #FF6B35; }
+  &.mode  { background: rgba(255,215,0,0.15); border: 1px solid rgba(255,215,0,0.40); color: #FFD700; text-transform: none; }
+}
+
+.ai-meta-row { display: flex; align-items: center; gap: 10px; }
+
+.ai-meta-text {
+  color: rgba(255,255,255,0.70); font-size: 12px; font-weight: 600;
+  background: rgba(255,255,255,0.08); padding: 4px 12px; border-radius: 20px;
+}
+
+.ai-refresh {
+  background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.22);
+  color: #fff; border-radius: 8px; padding: 5px 10px; cursor: pointer;
+  font-size: 14px; transition: all 0.22s ease;
+  &:hover { background: rgba(255,107,53,0.22); transform: rotate(20deg) scale(1.1); }
+}
+
+.ai-loading {
+  display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 28px 0;
+  p { color: rgba(255,255,255,0.80); font-size: 13px; font-weight: 700; margin: 0; }
+}
+
+.ai-dots {
+  display: flex; gap: 8px;
+  span {
+    width: 10px; height: 10px; border-radius: 50%; background: #FF6B35;
+    animation: ai-bounce 1.2s ease-in-out infinite;
+    &:nth-child(2) { animation-delay: 0.2s; background: #F7931E; }
+    &:nth-child(3) { animation-delay: 0.4s; background: #FBBF24; }
+  }
+}
+
+@keyframes ai-bounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40%           { transform: scale(1.2); opacity: 1; }
+}
+
+.ai-err {
+  color: #FCA5A5; font-size: 13px; font-weight: 700;
+  background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.30);
+  padding: 10px 16px; border-radius: 10px;
+}
+
+.ai-body {
+  color: rgba(255,255,255,0.92); font-size: 14px; line-height: 1.8;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.35);
+
+  ::ng-deep .ai-h {
+    color: #FF6B35; font-size: 13px; font-weight: 900;
+    text-transform: uppercase; letter-spacing: 0.7px;
+    margin: 16px 0 8px 0; padding-bottom: 5px;
+    border-bottom: 1px solid rgba(255,107,53,0.22);
+    &:first-child { margin-top: 0; }
+  }
+
+  ::ng-deep strong { color: #fff; font-weight: 800; }
+
+  ::ng-deep .ai-ul {
+    padding-left: 0; list-style: none; margin: 8px 0;
+    li {
+      position: relative; padding-left: 18px; margin-bottom: 5px;
+      &::before { content: '›'; position: absolute; left: 0; color: #FF6B35; font-weight: 900; font-size: 17px; line-height: 1.3; }
+    }
+  }
+}
+
+/* =========================================================
    RESPONSIVE
 ========================================================= */
 @media (max-width: 1100px) {
@@ -360,76 +513,45 @@
   .mail-grid { grid-template-columns: 1fr; }
   .mail-actions { justify-content: flex-start; }
 }
-/* =========================================================
-   KPI MODAL CHART (AJOUT)
-========================================================= */
-.modal-backdrop{
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  z-index: 2000;
-}
+/* =========================
+   BOUTON RÉSUMÉ PREMIUM
+========================= */
 
-.modal{
-  position: fixed;
-  top: 50%;
-  left: calc(50% + 120px); /* ✅ compense sidebar 240px */
-  transform: translate(-50%, -50%);
-  width: min(860px, 92vw);
-  background: rgba(255,255,255,0.16);
-  border: 2px solid rgba(255,255,255,0.28);
-  border-radius: 18px;
-  backdrop-filter: blur(16px);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.55);
-  z-index: 2100;
-  overflow: hidden;
-}
+.tb-resume-btn {
+  padding: 7px 18px;
+  border-radius: 12px;
 
-.modal-header{
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 14px 16px;
-  border-bottom: 1px solid rgba(255,255,255,0.18);
-}
+  gap: 6px;
 
-.modal-title{
-  color: #fff;
-  font-weight: 900;
-  font-size: 14px;
-  letter-spacing: 0.3px;
-  text-transform: uppercase;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-}
+  font-size: 13px;
+  font-weight: 800;
 
-.modal-close{
-  border: none;
-  background: rgba(255,255,255,0.14);
   color: #fff;
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.12);
+  border: 1.6px solid rgba(255, 107, 53, 0.6);
+
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.25);
+
   cursor: pointer;
-  font-weight: 900;
-  transition: all .2s ease;
+  transition: all 0.25s ease;
 
-  &:hover{
-    background: rgba(255,255,255,0.22);
-    transform: translateY(-1px);
+  &:hover {
+    background: linear-gradient(135deg, #FF6B35, #F7931E);
+    box-shadow: 0 8px 20px rgba(255, 107, 53, 0.45);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: scale(0.97);
   }
 }
-
-.modal-body{
-  padding: 14px 16px 18px 16px;
-
-  canvas{
-    width: 100% !important;
-    max-height: 360px;
-    display: block;
-  }
-}
-
-/* ✅ rendre la card "clickable" */
-.kpi-card{
-  cursor: pointer;
+/* Groupe titre + bouton */
+.page-title-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;   // espace entre KPI Dashboard et Résumé IA
 }

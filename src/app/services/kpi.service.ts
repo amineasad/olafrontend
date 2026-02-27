@@ -82,6 +82,22 @@ getMonthlySeries(affiliate: string, year: number, kpiCode: string, category?: st
 
   return this.http.get<ChartSeries>(`${this.baseUrl}/kpis/series`, { params });
 }
+ getAiSummary(
+    affiliate: string,
+    year: number,
+    category: string = 'ALL',
+    month: string = 'ALL'
+  ): Observable<{ summary: string; success: boolean }> {
+    const params = new HttpParams()
+      .set('affiliate', affiliate)
+      .set('year', year.toString())
+      .set('category', category)
+      .set('month', month);
 
+    return this.http.get<{ summary: string; success: boolean }>(
+      `${this.baseUrl}/kpi/summary`,
+      { params }
+    );
+  }
   
 }

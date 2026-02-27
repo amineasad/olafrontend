@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { KpiService, KpiValue } from 'src/app/services/kpi.service';
-import { MailService } from 'src/app/services/mail.service'; // ✅ AJOUT
+import { MailService } from 'src/app/services/mail.service';
 import { Chart } from 'chart.js/auto';
 import { ChartSeries } from 'src/app/services/kpi.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  // ===== MODAL GRAPH (AJOUT) =====
-showChartModal = false;
-modalTitle = '';
-modalError = '';
-private trendChart?: Chart;
+  // ===== MODAL GRAPH =====
+  showChartModal = false;
+  modalTitle = '';
+  modalError = '';
+  private trendChart?: Chart;
 
   // --- dropdown data ---
   affiliates: string[] = [];
@@ -34,53 +36,44 @@ private trendChart?: Chart;
   errorMsg = '';
   fileImported = false;
 
+  // ===== IA SUMMARY =====
+  aiSummary = '';
+  aiSummaryHtml: SafeHtml = '';
+  aiLoading = false;
+  aiError = '';
+
   constructor(
     private kpiService: KpiService,
-    private mailService: MailService // ✅ AJOUT
+    private mailService: MailService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
     this.fileImported = false;
   }
 
-  // -------------------------
-  // Init load (affiliates + years)
-  // -------------------------
   private initFilters(): void {
     this.errorMsg = '';
-
     this.kpiService.getAffiliates().subscribe({
       next: (affs) => {
         this.affiliates = affs || [];
         this.selectedAffiliate = this.affiliates[0] || '';
-
         this.kpiService.getYears().subscribe({
           next: (yrs) => {
             this.years = yrs || [];
             this.selectedYear = this.years[0] || new Date().getFullYear();
-
             this.loadMonths();
             this.loadCategories();
           },
-          error: (e) => {
-            console.error(e);
-            this.errorMsg = 'Erreur chargement années.';
-          }
+          error: (e) => { console.error(e); this.errorMsg = 'Erreur chargement années.'; }
         });
       },
-      error: (e) => {
-        console.error(e);
-        this.errorMsg = 'Erreur chargement pays.';
-      }
+      error: (e) => { console.error(e); this.errorMsg = 'Erreur chargement pays.'; }
     });
   }
 
-  // -------------------------
-  // Load months based on affiliate+year
-  // -------------------------
   loadMonths(): void {
     if (!this.selectedAffiliate || !this.selectedYear) return;
-
     this.kpiService.getMonths(this.selectedAffiliate, this.selectedYear).subscribe({
       next: (ms) => {
         this.months = ms || [];
@@ -88,35 +81,22 @@ private trendChart?: Chart;
           this.selectedMonth = this.months[0] || '';
         }
       },
-      error: (e) => {
-        console.error(e);
-        this.errorMsg = 'Erreur chargement mois.';
-      }
+      error: (e) => { console.error(e); this.errorMsg = 'Erreur chargement mois.'; }
     });
   }
 
-  // -------------------------
-  // Load categories based on affiliate+year
-  // -------------------------
   loadCategories(): void {
     if (!this.selectedAffiliate || !this.selectedYear) return;
-
     this.kpiService.getCategories(this.selectedAffiliate, this.selectedYear).subscribe({
       next: (cs) => {
         this.categories = (cs || []).filter(x => !!x && x.trim().length > 0);
         this.selectedCategory = 'ALL';
         console.log('Loaded categories:', this.categories);
       },
-      error: (e) => {
-        console.error(e);
-        this.errorMsg = 'Erreur chargement catégories.';
-      }
+      error: (e) => { console.error(e); this.errorMsg = 'Erreur chargement catégories.'; }
     });
   }
 
-  // -------------------------
-  // Events when user changes affiliate/year
-  // -------------------------
   onAffiliateChange(): void {
     this.kpis = [];
     this.errorMsg = '';
@@ -131,21 +111,14 @@ private trendChart?: Chart;
     this.loadCategories();
   }
 
-  // -------------------------
-  // Apply button -> load KPI
-  // -------------------------
   apply(): void {
     this.errorMsg = '';
-
     if (!this.selectedAffiliate || !this.selectedYear || !this.selectedMonth) {
       this.errorMsg = 'Veuillez sélectionner Pays, Année et Mois.';
       return;
     }
-
     this.loading = true;
-
-    const categoryParam =
-      (this.selectedCategory === 'ALL') ? undefined : this.selectedCategory;
+    const categoryParam = (this.selectedCategory === 'ALL') ? undefined : this.selectedCategory;
 
     if (this.selectedMonth === 'ALL') {
       this.kpiService.getKpisAverage(this.selectedAffiliate, this.selectedYear, categoryParam)
@@ -153,6 +126,7 @@ private trendChart?: Chart;
           next: (data) => {
             this.kpis = (data || []).sort((a, b) => a.kpiCode.localeCompare(b.kpiCode));
             this.loading = false;
+            this.loadAiSummary();
           },
           error: (e) => {
             console.error(e);
@@ -160,13 +134,13 @@ private trendChart?: Chart;
             this.errorMsg = 'Erreur chargement KPI (Average).';
           }
         });
-
     } else {
       this.kpiService.getKpis(this.selectedAffiliate, this.selectedMonth, this.selectedYear, categoryParam)
         .subscribe({
           next: (data) => {
             this.kpis = (data || []).sort((a, b) => a.kpiCode.localeCompare(b.kpiCode));
             this.loading = false;
+            this.loadAiSummary();
           },
           error: (e) => {
             console.error(e);
@@ -177,13 +151,49 @@ private trendChart?: Chart;
     }
   }
 
-  // -------------------------
-  // Helpers UI
-  // -------------------------
+  // ===== IA SUMMARY METHODS =====
+  loadAiSummary(): void {
+    if (!this.selectedAffiliate || !this.selectedYear) return;
+    this.aiLoading = true;
+    this.aiSummary = '';
+    this.aiError = '';
+
+    this.kpiService.getAiSummary(
+      this.selectedAffiliate,
+      this.selectedYear,
+      this.selectedCategory || 'ALL',
+      this.selectedMonth || 'ALL'
+    ).subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.aiSummary = res.summary;
+          this.aiSummaryHtml = this.sanitizer.bypassSecurityTrustHtml(
+            this.markdownToHtml(res.summary)
+          );
+        } else {
+          this.aiError = 'Résumé IA non disponible.';
+        }
+        this.aiLoading = false;
+      },
+      error: () => {
+        this.aiError = 'Erreur lors de la génération du résumé IA.';
+        this.aiLoading = false;
+      }
+    });
+  }
+
+  private markdownToHtml(text: string): string {
+    return text
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/^#{1,3} (.+)$/gm, '<h4 class="ai-h">$1</h4>')
+      .replace(/^- (.+)$/gm, '<li>$1</li>')
+      .replace(/(<li>.*?<\/li>\n?)+/gs, (match) => `<ul class="ai-ul">${match}</ul>`)
+      .replace(/\n{2,}/g, '<br><br>');
+  }
+
+  // ===== HELPERS =====
   prettyLabel(code: string): string {
-    return (code || '')
-      .replaceAll('_', ' ')
-      .replace(/\b\w/g, c => c.toUpperCase());
+    return (code || '').replaceAll('_', ' ').replace(/\b\w/g, c => c.toUpperCase());
   }
 
   isRate(code: string): boolean {
@@ -197,19 +207,14 @@ private trendChart?: Chart;
     return new Intl.NumberFormat('fr-FR').format(v);
   }
 
-  // KPI à NE PAS afficher quand on est en AVG
   excludedFromAverage: string[] = ['Days_per_month'];
 
   shouldDisplayKpi(kpiCode: string): boolean {
-    if (this.selectedMonth === 'ALL' && this.excludedFromAverage.includes(kpiCode)) {
-      return false;
-    }
+    if (this.selectedMonth === 'ALL' && this.excludedFromAverage.includes(kpiCode)) return false;
     return true;
   }
 
-  // -------------------------
-  // IMPORT
-  // -------------------------
+  // ===== IMPORT =====
   selectedFile?: File;
   importMsg = '';
   importing = false;
@@ -227,20 +232,16 @@ private trendChart?: Chart;
       this.importMsg = 'Veuillez sélectionner un fichier Excel.';
       return;
     }
-
     this.importing = true;
     this.importMsg = '';
-
     this.kpiService.importKpis(this.selectedFile).subscribe({
       next: (res) => {
         this.importMsg = res;
         this.importing = false;
-
         this.fileImported = true;
         this.initFilters();
         this.kpis = [];
       },
-
       error: (e) => {
         console.error(e);
         this.importing = false;
@@ -250,14 +251,11 @@ private trendChart?: Chart;
     });
   }
 
-  // =================================================
-  // 📧 MAIL (AJOUT MINIMAL)
-  // =================================================
+  // ===== MAIL =====
   showMailForm = false;
   managerEmail = 'manager.logistique@outlook.com';
   mailYear = new Date().getFullYear().toString();
   dashboardUrl = 'http://localhost:4200/login';
-
   sendingMail = false;
   mailSuccess = '';
   mailError = '';
@@ -271,14 +269,11 @@ private trendChart?: Chart;
   sendMailToManager(): void {
     this.mailSuccess = '';
     this.mailError = '';
-
     if (!this.managerEmail || !this.managerEmail.trim()) {
       this.mailError = 'Email du manager obligatoire.';
       return;
     }
-
     this.sendingMail = true;
-
     this.mailService.sendDashboardReady({
       to: this.managerEmail.trim(),
       year: this.mailYear,
@@ -294,117 +289,100 @@ private trendChart?: Chart;
       }
     });
   }
-  // =========================
-// ✅ KPI CLICK -> OPEN MODAL + LOAD SERIES
-// =========================
-openKpiChart(kpiCode: string) {
-  if (!this.fileImported) return;
-  if (!this.selectedAffiliate || !this.selectedYear) return;
 
-  // si user clique alors que c'est ALL (AVG), on affiche la tendance annuelle
-  const categoryParam = (this.selectedCategory === 'ALL') ? undefined : this.selectedCategory;
+  // ===== KPI MODAL CHART =====
+  openKpiChart(kpiCode: string) {
+    if (!this.fileImported) return;
+    if (!this.selectedAffiliate || !this.selectedYear) return;
+    const categoryParam = (this.selectedCategory === 'ALL') ? undefined : this.selectedCategory;
+    this.modalTitle = `${this.prettyLabel(kpiCode)} — Trend ${this.selectedYear}`;
+    this.modalError = '';
+    this.showChartModal = true;
+    this.kpiService.getMonthlySeries(this.selectedAffiliate, this.selectedYear, kpiCode, categoryParam)
+      .subscribe({
+        next: (s: ChartSeries) => {
+          this.renderTrendChart(s.labels, s.values, this.prettyLabel(kpiCode));
+        },
+        error: (e) => {
+          console.error(e);
+          this.modalError = 'Impossible de charger la courbe pour ce KPI.';
+        }
+      });
+  }
 
-  this.modalTitle = `${this.prettyLabel(kpiCode)} — Trend ${this.selectedYear}`;
-  this.modalError = '';
-  this.showChartModal = true;
+  closeKpiChart() {
+    this.showChartModal = false;
+    this.modalError = '';
+    this.trendChart?.destroy();
+    this.trendChart = undefined;
+  }
 
-  // charger série Jan..Dec
-  this.kpiService.getMonthlySeries(this.selectedAffiliate, this.selectedYear, kpiCode, categoryParam)
-    .subscribe({
-      next: (s: ChartSeries) => {
-        this.renderTrendChart(s.labels, s.values, this.prettyLabel(kpiCode));
+  private renderTrendChart(labels: string[], values: number[], label: string) {
+    this.trendChart?.destroy();
+    const canvas = document.getElementById('kpiTrendChart') as HTMLCanvasElement | null;
+    const ctx = canvas?.getContext('2d');
+    if (!ctx) return;
+    const isPercent = this.isRate(label) || this.isRate(label.replaceAll(' ', '_'));
+    const displayValues = isPercent ? values.map(v => (v ?? 0) * 100) : values;
+    this.trendChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          label: isPercent ? `${label} (%)` : label,
+          data: displayValues,
+          tension: 0.35,
+          borderWidth: 4,
+          pointRadius: 3,
+          pointHoverRadius: 6,
+          borderColor: '#FF6B35',
+          backgroundColor: 'rgba(255,107,53,0.20)',
+          fill: true
+        }]
       },
-      error: (e) => {
-        console.error(e);
-        this.modalError = 'Impossible de charger la courbe pour ce KPI.';
-      }
-    });
-}
-
-closeKpiChart() {
-  this.showChartModal = false;
-  this.modalError = '';
-  this.trendChart?.destroy();
-  this.trendChart = undefined;
-}
-
-private renderTrendChart(labels: string[], values: number[], label: string) {
-  this.trendChart?.destroy();
-
-  const canvas = document.getElementById('kpiTrendChart') as HTMLCanvasElement | null;
-  const ctx = canvas?.getContext('2d');
-  if (!ctx) return;
-
-  // ✅ Détection si le KPI est un taux (rate / compliance)
-  const isPercent =
-    this.isRate(label) ||
-    this.isRate(label.replaceAll(' ', '_'));
-
-  // ✅ Conversion en %
-  const displayValues = isPercent
-    ? values.map(v => (v ?? 0) * 100)
-    : values;
-
-  this.trendChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels,
-      datasets: [{
-        label: isPercent ? `${label} (%)` : label,
-        data: displayValues,
-        tension: 0.35,
-        borderWidth: 4,
-        pointRadius: 3,
-        pointHoverRadius: 6,
-        borderColor: '#FF6B35',
-        backgroundColor: 'rgba(255,107,53,0.20)',
-        fill: true
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          labels: {
-            color: '#fff',
-            font: { weight: 700 } // ✅ nombre et non string
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { labels: { color: '#fff', font: { weight: 700 } } },
+          tooltip: {
+            callbacks: {
+              label: (ctx) => {
+                const raw = ctx.parsed?.y;
+                if (raw === null || raw === undefined) return `${ctx.dataset.label} : --`;
+                return isPercent
+                  ? `${ctx.dataset.label} : ${raw.toFixed(1)}%`
+                  : `${ctx.dataset.label} : ${new Intl.NumberFormat('fr-FR').format(raw)}`;
+              }
+            }
           }
         },
-       tooltip: {
-  callbacks: {
-    label: (ctx) => {
-      const raw = ctx.parsed?.y;
-
-      // ✅ si null/undefined -> rien (ou "--")
-      if (raw === null || raw === undefined) {
-        return `${ctx.dataset.label} : --`;
-      }
-
-      return isPercent
-        ? `${ctx.dataset.label} : ${raw.toFixed(1)}%`
-        : `${ctx.dataset.label} : ${new Intl.NumberFormat('fr-FR').format(raw)}`;
-    }
-  }
-}
-      },
-      scales: {
-        x: {
-          ticks: {
-            color: '#fff',
-            font: { weight: 700 }
-          },
-          grid: { color: 'rgba(255,255,255,0.10)' }
-        },
-        y: {
-          ticks: {
-            color: '#fff',
-            font: { weight: 700 },
-            callback: (val) => isPercent ? `${val}%` : `${val}`
-          },
-          grid: { color: 'rgba(255,255,255,0.10)' }
+        scales: {
+          x: { ticks: { color: '#fff', font: { weight: 700 } }, grid: { color: 'rgba(255,255,255,0.10)' } },
+          y: {
+            ticks: { color: '#fff', font: { weight: 700 }, callback: (val) => isPercent ? `${val}%` : `${val}` },
+            grid: { color: 'rgba(255,255,255,0.10)' }
+          }
         }
       }
-    }
-  });
+    });
+  }
+  scrollToSummary(): void {
+  // Si tu veux forcer la génération avant de descendre :
+  if (this.fileImported && !this.aiLoading && !this.aiSummary && !this.aiError) {
+    this.loadAiSummary();
+    setTimeout(() => {
+      document.getElementById('aiSummarySection')
+        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 150);
+    return;
+  }
+
+  const el = document.getElementById('aiSummarySection');
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    // fallback si l'élément n'existe pas (ngIf false)
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }
 }
 }
