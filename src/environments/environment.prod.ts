@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://tuesday-counted-tide-equivalent.trycloudflare.com'
+  apiUrl: 'https://observations-randy-prevention-jurisdiction.trycloudflare.com'
 };

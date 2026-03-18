@@ -1,0 +1,415 @@
+<div class="ola-layout">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="ola-sidebar">
+    <div class="sidebar-brand">
+      <img class="nav-logo" src="assets/images/ola.jpg" alt="OLA">
+      <div class="nav-brand">
+        <div class="nav-title">Dashboard</div>
+        <div class="nav-sub">Logistique</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-link" routerLink="/accueil" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <span class="sidebar-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        </span>
+        <span class="sidebar-text">Accueil</span>
+      </a>
+      <a class="sidebar-link" routerLink="/dashboard-main" routerLinkActive="active">
+        <span class="sidebar-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+        </span>
+        <span class="sidebar-text">Dashboard</span>
+      </a>
+      <a class="sidebar-link" routerLink="/dashboard" routerLinkActive="active">
+        <span class="sidebar-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+        </span>
+        <span class="sidebar-text">KPI</span>
+      </a>
+      <a class="sidebar-link" routerLink="/anomalies" routerLinkActive="active">
+        <span class="sidebar-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+        </span>
+        <span class="sidebar-text">Anomalies</span>
+      </a>
+      <a class="sidebar-link" routerLink="/graphes" routerLinkActive="active">
+        <span class="sidebar-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg>
+        </span>
+        <span class="sidebar-text">Graphes</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-spacer"></div>
+
+    <div class="sidebar-bottom-links">
+      <a class="sidebar-link-sm" href="#">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <span>Support</span>
+      </a>
+      <a class="sidebar-link-sm" routerLink="/settings">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg>
+        <span>Paramètres</span>
+      </a>
+    </div>
+
+    <div class="sidebar-profile">
+      <div class="profile">
+        <button class="profile-btn" type="button">
+          <span class="avatar">M</span>
+          <span class="profile-text">
+            <span class="name">Manager Logisti...</span>
+            <span class="role">MANAGER</span>
+          </span>
+          <span class="chev">▾</span>
+        </button>
+        <div class="profile-menu">
+          <a class="menu-item" routerLink="/profile">Profil</a>
+          <a class="menu-item" routerLink="/settings">Paramètres</a>
+          <button class="menu-item danger" type="button">Déconnexion</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== RIGHT ===================== -->
+  <div class="ola-right">
+
+    <!-- TOPBAR -->
+    <header class="ola-topbar">
+      <div class="topbar-left">
+        <span class="topbar-page-label">Vue d'ensemble</span>
+        <span class="topbar-breadcrumb" *ngIf="dashboardReady">
+          {{ selectedAffiliate }} · {{ selectedYear }} · {{ selectedMonth }}
+        </span>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-search">
+          <svg class="search-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input type="text" placeholder="Search" />
+        </div>
+        <button class="tb-btn" title="Notifications">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6V11c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+          </svg>
+          <span class="badge">5</span>
+        </button>
+        <button class="tb-btn" title="Profil">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="ola-page">
+
+      <!-- ======= IMPORT SCREEN ======= -->
+      <div class="import-screen" *ngIf="!dashboardReady">
+        <div class="import-hero">
+          <div class="orb orb-1"></div>
+          <div class="orb orb-2"></div>
+          <div class="orb orb-3"></div>
+          <div class="import-content">
+            <div class="import-logo-ring">
+              <div class="ring ring-outer"></div>
+              <div class="ring ring-middle"></div>
+              <div class="ring ring-inner"></div>
+              <img src="assets/images/ola.jpg" class="import-ola-logo" alt="OLA">
+            </div>
+            <h1 class="import-title">OLA Energy Logistique</h1>
+            <p class="import-desc">
+              Importez votre fichier Excel pour accéder au dashboard<br>
+              et visualiser tous vos indicateurs de performance.
+            </p>
+            <div class="import-stats-preview">
+              <div class="stat-preview-item"><span class="stat-p-icon">🚚</span><span class="stat-p-label">Livraisons</span></div>
+              <div class="stat-preview-divider"></div>
+              <div class="stat-preview-item"><span class="stat-p-icon">⚠️</span><span class="stat-p-label">Sécurité</span></div>
+              <div class="stat-preview-divider"></div>
+              <div class="stat-preview-item"><span class="stat-p-icon">💰</span><span class="stat-p-label">Coûts</span></div>
+              <div class="stat-preview-divider"></div>
+              <div class="stat-preview-item"><span class="stat-p-icon">🛻</span><span class="stat-p-label">Flotte</span></div>
+            </div>
+            <div class="import-drop-zone"
+                 [class.drag-over]="isDragOver"
+                 (dragover)="onDragOver($event)"
+                 (dragleave)="isDragOver = false"
+                 (drop)="onDrop($event)"
+                 (click)="fileInput2.click()">
+              <input #fileInput2 type="file" accept=".xlsx,.xls" (change)="onFileSelected($event)" hidden />
+              <div class="drop-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="17 8 12 3 7 8"/>
+                  <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+              </div>
+              <div class="drop-text">
+                <span class="drop-main" *ngIf="!selectedFile">Glissez votre fichier Excel ici</span>
+                <span class="drop-main file-selected" *ngIf="selectedFile">✅ {{ selectedFile.name }}</span>
+                <span class="drop-sub">ou cliquez pour parcourir · .xlsx, .xls</span>
+              </div>
+            </div>
+            <button class="btn-import-main" (click)="importExcel()" [disabled]="!selectedFile || importing" [class.loading]="importing">
+              <span class="btn-spinner" *ngIf="importing"></span>
+              <svg *ngIf="!importing" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              {{ importing ? 'Import en cours...' : 'Importer et afficher le Dashboard' }}
+            </button>
+            <div class="import-msg-box" *ngIf="importMsg" [class.error]="importError">{{ importMsg }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======= DASHBOARD ======= -->
+      <div class="dashboard-content" *ngIf="dashboardReady" @fadeIn>
+
+        <!-- Filter bar -->
+        <div class="dash-filter-bar">
+          <div class="filter-field">
+            <label>Pays</label>
+            <select [(ngModel)]="selectedAffiliate" (change)="onAffiliateChange()">
+              <option *ngFor="let a of affiliates" [value]="a">{{ a }}</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label>Année</label>
+            <select [(ngModel)]="selectedYear" (change)="onYearChange()">
+              <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label>Mois</label>
+            <select [(ngModel)]="selectedMonth">
+              <option value="ALL">ALL (Moy.)</option>
+              <option *ngFor="let m of months" [value]="m">{{ m }}</option>
+            </select>
+          </div>
+          <button class="btn-apply-dash" (click)="applyDashboard()" [disabled]="loading">
+            <span class="btn-spinner-sm" *ngIf="loading"></span>
+            <svg *ngIf="!loading" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            {{ loading ? 'Chargement...' : 'Actualiser' }}
+          </button>
+
+          <button class="btn-resume-ia" type="button" (click)="scrollToAiSummary()" [disabled]="!dashboardReady">
+            📄 Résumé IA
+          </button>
+          <button class="btn-new-import" (click)="resetImport()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Nouveau fichier
+          </button>
+        </div>
+
+        <!-- Loading -->
+        <div class="dash-loading" *ngIf="loading">
+          <div class="load-dots"><span></span><span></span><span></span><span></span></div>
+          <p>Chargement des KPIs...</p>
+        </div>
+
+        <!-- ══ MAIN GRID ══ -->
+        <div class="main-grid" *ngIf="!loading">
+
+          <!-- ── Data Analytics (large) ── -->
+          <div class="widget widget-analytics">
+            <div class="widget-header">
+              <span class="widget-title">Data Analytics</span>
+              <div class="widget-header-right">
+                <select class="widget-select">
+                  <option>All</option>
+                  <option *ngFor="let a of affiliates" [value]="a">{{ a }}</option>
+                </select>
+                <button class="widget-btn-pill">Filtres</button>
+              </div>
+            </div>
+
+            <!-- Stats pills -->
+            <div class="analytics-stats-row">
+              <div class="analytics-stat" *ngFor="let s of analyticsStats">
+                <span class="as-label">{{ s.label }}</span>
+                <div class="as-row">
+                  <span class="as-value">{{ s.value }}</span>
+                  <span class="as-delta" [ngClass]="s.positive ? 'up' : 'down'">
+                    {{ s.positive ? '▲' : '▼' }} {{ s.delta }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Charts area — 2 charts only, no donut -->
+            <div class="analytics-charts-area">
+              <div class="chart-line-wrap">
+                <div class="chart-inner-title">
+                  <span class="chart-title-dot" style="background:#003087"></span>
+                  On-Time Delivery Rate (%)
+                </div>
+                <canvas id="analyticsLineChart"></canvas>
+              </div>
+              <div class="chart-bar-wrap">
+                <div class="chart-inner-title">
+                  <span class="chart-title-dot" style="background:#FF6B35"></span>
+                  Livraisons mensuelles
+                </div>
+                <canvas id="analyticsBarChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Right Panel ── -->
+          <div class="right-panel">
+
+            <!-- Recent Activity -->
+            <div class="widget widget-activity">
+              <div class="widget-header">
+                <span class="widget-title">Activité récente</span>
+                <button class="widget-dots">•••</button>
+              </div>
+              <div class="activity-list">
+                <div class="activity-item" *ngFor="let a of recentActivities">
+                  <div class="act-dot-left" [style.background]="a.color"></div>
+                  <div class="act-body">
+                    <div class="act-title">{{ a.title }}</div>
+                    <div class="act-time">{{ a.time }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fleet Status Gauge -->
+            <div class="widget widget-gauge">
+              <div class="widget-header">
+                <span class="widget-title">Statut Flotte</span>
+                <button class="widget-dots">•••</button>
+              </div>
+              <div class="gauge-area">
+                <div class="gauge-wrap">
+                  <canvas id="gaugeChart"></canvas>
+                  <div class="gauge-center-text">
+                    <span class="gauge-val">{{ fleetUtilization }}%</span>
+                    <span class="gauge-lbl">Utilisation</span>
+                  </div>
+                </div>
+                <div class="gauge-status-row">
+                  <span class="status-pill ok">● Opérationnel</span>
+                  <span class="status-pill" [ngClass]="fleetUtilization >= 100 ? 'ok' : 'bad'">
+                    {{ fleetUtilization >= 100 ? '✓ Optimal' : '✗ Critique' }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ── KPI Table (Master Record) — pleine largeur ── -->
+          <div class="widget widget-table widget-table-full">
+            <div class="widget-header">
+              <span class="widget-title">KPI Master Record</span>
+              <div class="widget-header-right">
+                <div class="table-search">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                  <input type="text" placeholder="Rechercher..." [(ngModel)]="tableSearch" />
+                </div>
+                <select class="widget-select"><option>All time</option><option>Mois</option></select>
+                <button class="widget-btn-pill">Filter</button>
+              </div>
+            </div>
+            <div class="table-scroll">
+              <table class="kpi-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>KPI</th>
+                    <th>Valeur</th>
+                    <th>Période</th>
+                    <th>Statut</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let k of filteredTableKpis; let i = index">
+                    <td class="td-id">#{{ (i + 1).toString().padStart(4, '0') }}</td>
+                    <td class="td-name">
+                      <span class="tbl-icon">{{ getKpiIcon(k.kpiCode) }}</span>
+                      {{ prettyLabel(k.kpiCode) }}
+                    </td>
+                    <td class="td-val">{{ formatValue(k.value, k.kpiCode) }}</td>
+                    <td class="td-period">{{ k.month }} {{ k.year }}</td>
+                    <td>
+                      <span class="tbl-badge" [ngClass]="getTableStatusClass(k.kpiCode, k.value)">
+                        {{ getTableStatusLabel(k.kpiCode, k.value) }}
+                      </span>
+                    </td>
+                    <td class="td-actions">
+                      <button class="tbl-icon-btn" (click)="openKpiChart(k.kpiCode)" title="Trend">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="12" height="12"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                      </button>
+                      <button class="tbl-icon-btn" title="Info">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr *ngIf="filteredTableKpis.length === 0">
+                    <td colspan="6" class="td-empty">Aucun KPI — cliquez sur Actualiser.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div><!-- /main-grid -->
+
+        <div class="error-state" *ngIf="errorMsg">⚠️ {{ errorMsg }}</div>
+
+        <!-- ===================== RÉSUMÉ IA ===================== -->
+        <div id="aiSummarySection" class="ai-summary-card" *ngIf="aiSummary || aiLoading || aiError">
+
+          <div class="ai-header">
+            <div class="ai-badge-row">
+              <span class="ai-icon">🤖</span>
+              <span class="ai-title">Analyse IA</span>
+              <span class="ai-chip model">Groq · LLaMA 3.3</span>
+              <span class="ai-chip mode" *ngIf="!aiLoading && aiSummary">
+                {{ selectedMonth === 'ALL' ? '📅 Résumé annuel' : '📆 Résumé ' + selectedMonth }}
+              </span>
+            </div>
+            <div class="ai-meta-row" *ngIf="aiSummary && !aiLoading">
+              <span class="ai-meta-text">
+                {{ selectedAffiliate }} · {{ selectedYear }}
+              </span>
+              <button class="ai-refresh" (click)="loadAiSummary()" title="Régénérer">🔄</button>
+            </div>
+          </div>
+
+          <div class="ai-loading" *ngIf="aiLoading">
+            <div class="ai-dots"><span></span><span></span><span></span></div>
+            <p>Analyse en cours...</p>
+          </div>
+
+          <div class="ai-err" *ngIf="aiError && !aiLoading">⚠️ {{ aiError }}</div>
+
+          <div class="ai-body" *ngIf="aiSummary && !aiLoading" [innerHTML]="aiSummaryHtml"></div>
+
+        </div>
+        <!-- ===================== FIN RÉSUMÉ IA ===================== -->
+
+      </div><!-- /dashboard-content -->
+    </div><!-- /ola-page -->
+  </div><!-- /ola-right -->
+
+  <!-- Modal -->
+  <div class="modal-backdrop" *ngIf="showChartModal" (click)="closeKpiChart()"></div>
+  <div class="modal-chart" *ngIf="showChartModal">
+    <div class="modal-header">
+      <div class="modal-title">{{ modalTitle }}</div>
+      <button class="modal-close" (click)="closeKpiChart()">✕</button>
+    </div>
+    <div class="modal-body">
+      <canvas id="kpiTrendChartMain"></canvas>
+      <div class="hint-error" *ngIf="modalError">{{ modalError }}</div>
+    </div>
+  </div>
+
+</div>
