@@ -65,6 +65,9 @@ export interface ActivityItem {
 })
 export class DashboardMainComponent implements OnInit, OnDestroy {
 
+  // ── sidebar active section ────────────────────────────────────────────────
+  activeSection: 'dashboard' | 'kpi' = 'dashboard';
+
   // ── state ────────────────────────────────────────────────────────────────
   dashboardReady = false;
   loading        = false;
@@ -234,6 +237,21 @@ export class DashboardMainComponent implements OnInit, OnDestroy {
       .replace(/^- (.+)$/gm, '<li>$1</li>')
       .replace(/(<li>.*?<\/li>\n?)+/gs, (match) => `<ul class="ai-ul">${match}</ul>`)
       .replace(/\n{2,}/g, '<br><br>');
+  }
+
+  setActiveSection(section: 'dashboard' | 'kpi'): void {
+    this.activeSection = section;
+  }
+
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  scrollToKpiTable(): void {
+    setTimeout(() => {
+      document.getElementById('kpiTableSection')
+        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
   }
 
   scrollToAiSummary(): void {
