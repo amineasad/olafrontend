@@ -1,0 +1,153 @@
+<div class="admin-page">
+
+  <!-- TOPBAR -->
+  <header class="admin-topbar">
+    <div class="topbar-left">
+      <img src="assets/images/ola.jpg" alt="OLA" class="brand-logo">
+      <div>
+        <div class="brand-title">Admin Panel</div>
+        <div class="brand-sub">Gestion des utilisateurs • OLA Energy</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <a routerLink="/dashboard-main" class="btn-back">← Dashboard</a>
+    </div>
+  </header>
+
+  <!-- BODY -->
+  <div class="admin-body">
+
+    <div class="page-title-row">
+      <h2 class="admin-title">👥 Gestion des comptes</h2>
+      <span class="user-count-badge">{{ users.length }} utilisateurs</span>
+    </div>
+
+    <!-- Messages -->
+    <div class="msg-success" *ngIf="successMsg">✅ {{ successMsg }}</div>
+    <div class="msg-error"   *ngIf="errorMsg">⚠️ {{ errorMsg }}</div>
+
+    <!-- Loading -->
+    <div class="admin-loading" *ngIf="loading">
+      <div class="load-dots"><span></span><span></span><span></span></div>
+      <p>Chargement...</p>
+    </div>
+
+    <!-- CARD TABLE -->
+    <div class="glass-card" *ngIf="!loading">
+
+      <div class="card-head">
+        <span class="card-head-title">Liste des utilisateurs</span>
+      </div>
+
+      <div class="table-head">
+        <span>Utilisateur</span>
+        <span>Email</span>
+        <span>Rôle</span>
+        <span class="col-right">Actions</span>
+      </div>
+
+      <div class="table-row" *ngFor="let user of users">
+
+        <div class="cell-name">
+          <div class="user-avatar">
+            {{ (user.prenom?.[0] || '') }}{{ (user.nom?.[0] || '') }}
+          </div>
+          <div>
+            <div class="user-fullname">{{ user.prenom }} {{ user.nom }}</div>
+            <div class="user-poste">{{ user.poste || user.departement }}</div>
+          </div>
+        </div>
+
+        <div class="cell-email">{{ user.email }}</div>
+
+        <div class="cell-role">
+          <select [(ngModel)]="user.role" (change)="changeRole(user, user.role)">
+            <option value="MANAGER">MANAGER</option>
+            <option value="ADMIN">ADMIN</option>
+          </select>
+          <span class="role-badge"
+            [ngClass]="user.role === 'ADMIN' ? 'badge-admin' : 'badge-manager'">
+            {{ user.role }}
+          </span>
+        </div>
+
+        <div class="cell-actions">
+          <button class="btn-edit" (click)="openEdit(user)">✏️ Modifier</button>
+          <button class="btn-delete" (click)="deleteUser(user.id)">🗑️ Supprimer</button>
+        </div>
+
+      </div>
+
+      <div class="table-empty" *ngIf="users.length === 0 && !loading">
+        Aucun utilisateur trouvé.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ MODAL EDIT ══ -->
+  <div class="modal-backdrop" *ngIf="showEditModal" (click)="closeEdit()"></div>
+
+  <div class="modal-box" *ngIf="showEditModal && editUser">
+    <div class="modal-header">
+      <span class="modal-title">✏️ Modifier l'utilisateur</span>
+      <button class="modal-close" (click)="closeEdit()">✕</button>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="form-row">
+        <div class="form-field">
+          <label>Prénom</label>
+          <input type="text" [(ngModel)]="editUser.prenom" placeholder="Prénom" />
+        </div>
+        <div class="form-field">
+          <label>Nom</label>
+          <input type="text" [(ngModel)]="editUser.nom" placeholder="Nom" />
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label>Email</label>
+        <input type="email" [(ngModel)]="editUser.email" placeholder="Email" />
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label>Poste</label>
+          <input type="text" [(ngModel)]="editUser.poste" placeholder="Poste" />
+        </div>
+        <div class="form-field">
+          <label>Département</label>
+          <input type="text" [(ngModel)]="editUser.departement" placeholder="Département" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label>Région</label>
+          <input type="text" [(ngModel)]="editUser.region" placeholder="Région (optionnel)" />
+        </div>
+        <div class="form-field">
+          <label>Téléphone</label>
+          <input type="text" [(ngModel)]="editUser.telephone" placeholder="Téléphone (optionnel)" />
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label>Rôle</label>
+        <select [(ngModel)]="editUser.role" class="form-select">
+          <option value="MANAGER">MANAGER</option>
+          <option value="ADMIN">ADMIN</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-cancel" (click)="closeEdit()">Annuler</button>
+      <button class="btn-save" (click)="saveEdit()">💾 Enregistrer</button>
+    </div>
+  </div>
+
+</div>

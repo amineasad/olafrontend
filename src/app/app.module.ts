@@ -14,6 +14,7 @@ import { LandingpageComponent } from './components/landingpage/landingpage.compo
 import { AccueilComponent } from './components/accueil/accueil.component';
 import { GraphesComponent } from './components/graphes/graphes.component';
 import { DashboardMainComponent } from './components/dashboard-main/dashboard-main.component';
+import { AdminUsersComponent } from './components/admin/admin-users.component';
 
 
 
@@ -28,6 +29,7 @@ import { DashboardMainComponent } from './components/dashboard-main/dashboard-ma
     AccueilComponent,
     GraphesComponent,
     DashboardMainComponent,
+    AdminUsersComponent,
     
     
   ],

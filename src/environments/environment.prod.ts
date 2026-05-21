@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://observations-randy-prevention-jurisdiction.trycloudflare.com'
+  apiUrl: 'https://midi-algorithms-revealed-msgstr.trycloudflare.com'
 };

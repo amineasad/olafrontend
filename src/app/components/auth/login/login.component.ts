@@ -45,7 +45,7 @@ export class LoginComponent {
     this.auth.login(email, this.password).subscribe({
       next: () => {
         this.loading = false;
-        this.router.navigate(['/accueil']); // change vers ton dashboard si tu veux
+        this.router.navigate(['/dashboard-main']); // change vers ton dashboard si tu veux
       },
       error: (e: any) => {
         this.loading = false;

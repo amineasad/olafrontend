@@ -8,6 +8,7 @@ import { LandingpageComponent } from './components/landingpage/landingpage.compo
 import { AccueilComponent } from './components/accueil/accueil.component';
 import { GraphesComponent } from './components/graphes/graphes.component';
 import { DashboardMainComponent } from './components/dashboard-main/dashboard-main.component';
+import { AdminUsersComponent } from './components/admin/admin-users.component';
 const routes: Routes = [ 
   { path: '', component: LandingpageComponent },
   { path: 'login', component: LoginComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   path: 'dashboard-main',
   component: DashboardMainComponent
 },
+{ path: 'admin/users', component: AdminUsersComponent },
 
    { path: '**', redirectTo: '' }];
 
